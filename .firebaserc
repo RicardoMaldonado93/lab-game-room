@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "practica-profesional-3d126": {
+      "hosting": {
+        "lab-iv": [
+          "practica-profesional-3d126"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<div class="container-fluid justify-content-center">
+  <div class="row justify-content-center" *ngIf="user">
+    <div class="card-columns d-flex col-10">
+      <div class="card ju col-12">
+        <div class="card-body col-12">
+          <h4 class="card-title">My Profile</h4>
+          <div class="row">
+            <div
+              [innerHtml]="user.photoURL | safeHtml"
+              class="img col-auto"
+            ></div>
+            <div class="col-8 d-flex flex-column">
+              <label class="d-flex">Nick Name:</label>
+              <p class="card-text d-flex">{{ user.displayName }}</p>
+              <hr />
+              <label class="d-flex">Name:</label>
+              <p class="card-text d-flex">{{ user.firstName }}</p>
+              <hr />
+              <label class="d-flex">Last Name:</label>
+              <p class="card-text d-flex">{{ user.lastName }}</p>
+              <hr />
+              <label class="d-flex">Email:</label>
+              <p class="card-text d-flex">{{ user.email }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<ng-template #login>
+  <div class="login">
+    <h1>{{ title }}</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <input
+          [class.error]="
+            loginForm.get('user')?.invalid && loginForm.get('user')?.touched
+          "
+          formControlName="user"
+          type="email"
+          name="u"
+          placeholder="Username"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            loginForm.get('user')?.invalid && loginForm.get('user')?.touched
+          "
+          class="text-danger"
+          >El email no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            loginForm.get('user')?.invalid && loginForm.get('user')?.touched
+          "
+          formControlName="password"
+          type="password"
+          name="p"
+          placeholder="Password"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+          class="text-danger"
+          >El usuario no es valido</small
+        >
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary btn-block btn-large"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary btn-block btn-large"
+        (click)="changeTemplate(registerTemplate)"
+      >
+        register
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #register>
+  <div class="login">
+    <h1>Register</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('userName')?.invalid &&
+            registerForm.get('userName')?.touched
+          "
+          formControlName="userName"
+          type="text"
+          name="u"
+          placeholder="Username"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            registerForm.get('userName')?.invalid &&
+            registerForm.get('userName')?.touched
+          "
+          class="text-danger"
+          >El usuario no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('firstName')?.invalid &&
+            registerForm.get('firstName')?.touched
+          "
+          formControlName="firstName"
+          type="text"
+          name="u"
+          placeholder="firstName"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            registerForm.get('firstName')?.invalid &&
+            registerForm.get('firstName')?.touched
+          "
+          class="text-danger"
+          >El usuario no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('lastName')?.invalid &&
+            registerForm.get('lastName')?.touched
+          "
+          formControlName="lastName"
+          type="text"
+          name="u"
+          placeholder="lastName"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            registerForm.get('lastName')?.invalid &&
+            registerForm.get('lastName')?.touched
+          "
+          class="text-danger"
+          >El usuario no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('email')?.invalid &&
+            registerForm.get('email')?.touched
+          "
+          formControlName="email"
+          type="email"
+          name="u"
+          placeholder="email"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="
+            registerForm.get('email')?.errors &&
+            registerForm.get('email')?.touched
+          "
+          class="text-danger"
+          >El email no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('password')?.invalid &&
+            registerForm.get('password')?.touched
+          "
+          formControlName="password"
+          type="password"
+          name="p"
+          placeholder="Password"
+          required="required"
+          autocomplete="off"
+        />
+        <small *ngIf="registerForm.get('password')?.invalid" class="text-danger"
+          >El password no es valido</small
+        >
+      </div>
+      <div class="input-container">
+        <input
+          [class.error]="
+            registerForm.get('confirmPassword')?.invalid &&
+            registerForm.get('confirmPassword')?.touched
+          "
+          formControlName="confirmPassword"
+          type="password"
+          name="p"
+          placeholder="Confirm Password"
+          required="required"
+          autocomplete="off"
+        />
+        <small
+          *ngIf="registerForm.get('confirmPassword')?.invalid"
+          class="text-danger"
+          >El password no coincide</small
+        >
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-large">
+        Submit
+      </button>
+    </form>
+  </div>
+</ng-template>
