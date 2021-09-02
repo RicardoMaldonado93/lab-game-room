@@ -23,6 +23,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/my-profile']">My Profile</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/about-me']">About me</a>
+      </li>
       <li class="nav-item dropdown" hidden>
         <a
           class="nav-link dropdown-toggle"
@@ -38,11 +41,9 @@
           <a class="dropdown-item" href="#">Action 2</a>
         </div>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#" (click)="logOut()"
-          >Logout <span class="sr-only">Logout</span></a
-        >
-      </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0 " >
+      <button class="btn btn-outline-success my-2 my-sm-0 logout-btn" (click)="logOut()">Logout</button>
+    </form>
   </div>
 </nav>

@@ -1,3 +1,4 @@
+import { AboutMeComponent } from './../pages/about-me/about-me.component';
 import { SafeHtmlPipe } from './../pipes/safe-html.pipe';
 import { ProfileComponent } from './../pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,11 +8,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [LoginComponent, HomeComponent, ProfileComponent, SafeHtmlPipe],
+  declarations: [
+    LoginComponent,
+    HomeComponent,
+    ProfileComponent,
+    AboutMeComponent,
+    SafeHtmlPipe,
+  ],
   exports: [
     LoginComponent,
     HomeComponent,
     ProfileComponent,
+    AboutMeComponent,
     FormsModule,
     ReactiveFormsModule,
   ],

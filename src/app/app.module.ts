@@ -11,7 +11,6 @@ import { MaterialModule } from './modules/angular-material.module';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { ComponentsModule } from './modules/components.module';
 import { PagesModule } from './modules/pages.module';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [AppComponent],

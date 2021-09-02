@@ -5,6 +5,7 @@
     max-width: 260px 
     max-height: 260px
     width: 100%
+    border-radius: 100%
 
 .card-title
     font-size: 2rem
@@ -25,3 +26,13 @@ hr
 
 p
     margin-bottom: 0.25rem  
+
+@media screen and (max-width:414px)
+    .img
+        align-self: center
+    .card-title
+        text-align: center
+    label:nth-child(1)
+        margin-top: 1.5rem
+    svg
+        border-radius: 100%
