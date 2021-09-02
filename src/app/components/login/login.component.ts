@@ -24,6 +24,7 @@ import { DialogService } from './../../services/dialog.service';
 })
 export class LoginComponent implements AfterViewInit, OnInit {
   title: string = 'Login';
+  viewError!:boolean;
   private __emailValidator: ValidatorFn = Validators.pattern(
     '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
   );
@@ -63,7 +64,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   private openDialog(dialogData: DialogData): void {
     this.dialog = this.dialogFactoryService.open(dialogData, {
       width: '400px',
-      height: '50%',
+      height: '60%',
       hasBackdrop: true,
       disableClose: true,
       closeOnNavigation: false,
@@ -82,6 +83,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
       this.closeDialog();
       this.router.navigate(['/home']);
     }
+    else
+      this.viewError = true
   }
 
   async onSubmitRegister() {
@@ -103,6 +106,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
     if (isCreated) {
       this.changeTemplate(this.loginTemplate);
     }
+    else{
+      this.viewError = true
+    }
   }
 
   passwordConfirming(c: AbstractControl): { valid: boolean } {
@@ -119,27 +125,27 @@ export class LoginComponent implements AfterViewInit, OnInit {
   private formInicialization() {
     this.registerForm = new FormGroup(
       {
-        userName: new FormControl('hitachy93', [
+        userName: new FormControl('', [
           Validators.required,
           Validators.minLength(4),
         ]),
-        firstName: new FormControl('ricardo', [
+        firstName: new FormControl('', [
           Validators.required,
           Validators.minLength(4),
         ]),
-        lastName: new FormControl('maldonado', [
+        lastName: new FormControl('', [
           Validators.required,
           Validators.minLength(4),
         ]),
-        email: new FormControl('t.t@gmail.com', [
+        email: new FormControl('', [
           Validators.required,
           this.__emailValidator,
         ]),
-        password: new FormControl('123456', [
+        password: new FormControl('', [
           Validators.required,
           Validators.minLength(4),
         ]),
-        confirmPassword: new FormControl('123456', [
+        confirmPassword: new FormControl('', [
           Validators.required,
           Validators.minLength(4),
         ]),
@@ -148,11 +154,11 @@ export class LoginComponent implements AfterViewInit, OnInit {
     );
 
     this.loginForm = new FormGroup({
-      user: new FormControl('t.t@gmail.com', [
+      user: new FormControl('', [
         Validators.required,
         this.__emailValidator,
       ]),
-      password: new FormControl('123456', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 }

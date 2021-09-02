@@ -5,11 +5,10 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-import { formsNames } from '../routes/routersNames';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,32 +31,41 @@ export class AuthService {
   }
 
   createNewUserWithEmailAndPassword(user: IUser): Promise<boolean> {
-    const { email, password } = user;
-    this.auth
-      .createUserWithEmailAndPassword(email, password!)
-      .then((data) => {
-        const { user: userRegister } = data;
-        const { uid } = userRegister!;
-        this.updateDataUser({ uid, ...user });
-      })
-      .catch((err) => console.error);
+    try{
+      const { email, password } = user;
+      this.auth
+        .createUserWithEmailAndPassword(email, password!)
+        .then((data) => {
+          const { user: userRegister } = data;
+          const { uid } = userRegister!;
+          this.updateDataUser({ uid, ...user });
+        })
+        .catch((err) => console.error);
+  
+      return Promise.resolve(true);
 
-    return Promise.resolve(true);
+    }
+    catch(err){
+      return Promise.resolve(false)
+    }
   }
 
   async loginWithEmailAndPassword(credencials: ICredentials) {
-    !credencials && new Error('credentials cannot be null');
-    const { user, pass } = credencials;
-    const userCredentials: any = await this.auth.signInWithEmailAndPassword(
-      user,
-      pass
-    );
+    try {
+      const { user, pass } = credencials;
+      const userCredentials: any = await this.auth.signInWithEmailAndPassword(
+        user,
+        pass
+      );
 
-    this.auth.updateCurrentUser(userCredentials?.user);
-    this.getDataUser(userCredentials?.uid).subscribe((data) => {
-      console.log(userCredentials.uid, data);
-    });
-    return Promise.resolve(true);
+      this.auth.updateCurrentUser(userCredentials?.user);
+      this.getDataUser(userCredentials?.uid).subscribe((data) => {
+        console.log(userCredentials.uid, data);
+      });
+      return Promise.resolve(true);
+    } catch (error) {
+      return Promise.resolve(false);
+    }
   }
 
   private updateDataUser({
@@ -101,8 +109,8 @@ export class AuthService {
     this.auth.signOut();
   }
 
-  authState(){
-    return this.auth.authState
+  authState() {
+    return this.auth.authState;
   }
 }
 

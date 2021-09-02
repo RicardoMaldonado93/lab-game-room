@@ -10,7 +10,7 @@
           formControlName="user"
           type="email"
           name="u"
-          placeholder="Username"
+          placeholder="Email"
           required="required"
           autocomplete="off"
         />
@@ -43,6 +43,7 @@
           >El usuario no es valido</small
         >
       </div>
+      <small class="text-danger" *ngIf="viewError">Incorrect email or password.</small>
       <button
         type="submit"
         class="btn btn-primary btn-block btn-large"
@@ -190,6 +191,7 @@
           >El password no coincide</small
         >
       </div>
+      <small class="text-danger" *ngIf="viewError">Incorrect email or password.</small>
       <button type="submit" class="btn btn-primary btn-block btn-large">
         Submit
       </button>
