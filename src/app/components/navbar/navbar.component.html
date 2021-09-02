@@ -1,8 +1,9 @@
 <nav
   class="navbar navbar-expand-sm navbar-dark"
   style="background-color: rgb(34, 28, 28)"
+  *ngIf="viewNav"
 >
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">Game Room</a>
   <button
     class="navbar-toggler d-lg-none"
     type="button"
@@ -22,7 +23,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/my-profile']">My Profile</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" hidden>
         <a
           class="nav-link dropdown-toggle"
           href="#"

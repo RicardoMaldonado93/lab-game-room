@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.sass'],
 })
 export class NavbarComponent implements OnInit {
+  viewNav!:boolean;
+
   constructor(private auth: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.authState().subscribe( data =>{
+      this.viewNav = !!data || false
+    } )
+  }
 
   logOut() {
     this.auth.logOut();

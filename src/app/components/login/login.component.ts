@@ -45,9 +45,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.formInicialization();
-    // this.auth.getDataUser().subscribe((usr)=>{
-    //   console.log(usr.payload.data())
-    // })
   }
 
   dispatchDialog() {
@@ -109,7 +106,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   passwordConfirming(c: AbstractControl): { valid: boolean } {
-    console.log(c.valid);
     if (c.get('password')?.value !== c.get('confirmPassword')?.value) {
       c.get('password')?.setErrors({ incorrect: true });
       c.get('confirmPassword')?.setErrors({ incorrect: true });

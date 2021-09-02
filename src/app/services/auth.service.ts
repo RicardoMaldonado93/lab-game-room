@@ -89,7 +89,7 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  getDataUser(uid: string) {
+  private getDataUser(uid: string) {
     return this.firestore.collection('users').doc(uid).snapshotChanges();
   }
 
@@ -98,9 +98,11 @@ export class AuthService {
   }
 
   logOut() {
-    const { LOGIN } = formsNames;
     this.auth.signOut();
-    this.router.navigate([`/${LOGIN}`]);
+  }
+
+  authState(){
+    return this.auth.authState
   }
 }
 
