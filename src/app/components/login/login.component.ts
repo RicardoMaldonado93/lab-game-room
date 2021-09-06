@@ -64,7 +64,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   private openDialog(dialogData: DialogData): void {
     this.dialog = this.dialogFactoryService.open(dialogData, {
       width: '400px',
-      height: '60%',
+      height: 'min-content',
       hasBackdrop: true,
       disableClose: true,
       closeOnNavigation: false,
@@ -150,7 +150,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
           Validators.minLength(4),
         ]),
       },
-      this.passwordConfirming
+      // this.passwordConfirming
     );
 
     this.loginForm = new FormGroup({

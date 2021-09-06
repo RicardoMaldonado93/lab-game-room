@@ -57,7 +57,7 @@
         class="btn btn-primary btn-block btn-large"
         (click)="changeTemplate(registerTemplate)"
       >
-        register
+        Register
       </button>
     </form>
   </div>
@@ -98,7 +98,7 @@
           formControlName="firstName"
           type="text"
           name="u"
-          placeholder="firstName"
+          placeholder="FirstName"
           required="required"
           autocomplete="off"
         />
@@ -120,7 +120,7 @@
           formControlName="lastName"
           type="text"
           name="u"
-          placeholder="lastName"
+          placeholder="LastName"
           required="required"
           autocomplete="off"
         />
@@ -142,7 +142,7 @@
           formControlName="email"
           type="email"
           name="u"
-          placeholder="email"
+          placeholder="Email"
           required="required"
           autocomplete="off"
         />
@@ -192,7 +192,7 @@
         >
       </div>
       <small class="text-danger" *ngIf="viewError">Incorrect email or password.</small>
-      <button type="submit" class="btn btn-primary btn-block btn-large">
+      <button type="submit" class="btn btn-primary btn-block btn-large" [disabled]="!registerForm.valid">
         Submit
       </button>
     </form>
