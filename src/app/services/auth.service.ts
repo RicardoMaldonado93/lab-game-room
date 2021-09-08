@@ -7,8 +7,9 @@ import {
 import { Router } from '@angular/router';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
+import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -59,9 +60,10 @@ export class AuthService {
       );
 
       this.auth.updateCurrentUser(userCredentials?.user);
-      this.getDataUser(userCredentials?.uid).subscribe((data) => {
-        console.log(userCredentials.uid, data);
-      });
+      const { email, uid, firstName, lastName } = userCredentials.user
+      console.log(userCredentials.user)
+      this.setLog({email, uid})
+   
       return Promise.resolve(true);
     } catch (error) {
       return Promise.resolve(false);
@@ -78,7 +80,6 @@ export class AuthService {
   }: any) {
     if (!photoURL)
       photoURL = this.generateAvatarInicials(firstName!, lastName!);
-    console.log({ uid, email, displayName, photoURL });
 
     const userRef: AngularFirestoreDocument<IUser> = this.firestore.doc(
       `users/${uid}`
@@ -91,18 +92,26 @@ export class AuthService {
       photoURL,
       firstName,
       lastName,
+      date: moment().format()
     };
 
-    console.log(data);
     return userRef.set(data, { merge: true });
-  }
-
-  private getDataUser(uid: string) {
-    return this.firestore.collection('users').doc(uid).snapshotChanges();
   }
 
   private generateAvatarInicials(firstName: string, lastName: string) {
     return createAvatar(inicialSprites, { seed: `${firstName}-${lastName}` });
+  }
+
+  private setLog({ email, uid }:IUser){
+    const logsRef: AngularFirestoreDocument<any> = this.firestore.doc(`logs/${this.firestore.createId()}`);
+
+    const data = {
+      email,
+      uid,
+      date: moment().format()
+    }
+    
+    logsRef.set(data,{merge:true});
   }
 
   logOut() {
@@ -129,6 +138,7 @@ interface IUser {
   lastName?: string;
   somethingCustom?: string;
   password?: string;
+  date?:string
 }
 
 export interface IUserPublic {
