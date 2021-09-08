@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Injectable, NgZone } from '@angular/core';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateCurrentUser } from 'firebase/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
+import { switchMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,68 +18,72 @@ export class AuthService {
 
   constructor(
     private auth: AngularFireAuth,
-    private firestore: AngularFirestore,
-    private router: Router
+    private store: AngularFirestore,
+    private ngZone: NgZone
   ) {
     this.user$ = this.auth.authState.pipe(
       switchMap((user) => {
         if (user)
-          return this.firestore.doc<IUser>(`users/${user.uid}`).valueChanges();
+          return this.store.doc<IUser>(`users/${user.uid}`).valueChanges();
         else return of(null);
       })
     );
   }
 
-  createNewUserWithEmailAndPassword(user: IUser): Promise<boolean> {
-    try{
-      const { email, password } = user;
-      this.auth
-        .createUserWithEmailAndPassword(email, password!)
-        .then((data) => {
-          const { user: userRegister } = data;
-          const { uid } = userRegister!;
-          this.updateDataUser({ uid, ...user });
-        })
-        .catch((err) => console.error);
-  
-      return Promise.resolve(true);
+  async createNewUserWithEmailAndPassword(
+    user: IUser
+  ): Promise<{ status: boolean; message: string }> {
 
-    }
-    catch(err){
-      return Promise.resolve(false)
-    }
+    const fire: any = getAuth();
+    const { email, password } = user;
+    const result = await
+      createUserWithEmailAndPassword(fire, email, password!)
+        .then(
+          (data) => {
+            const { user: credentials } = data
+            this.updateDataUser({ ...user, ...credentials })
+            return Promise.resolve({ status: true, message: 'OK' });
+          },
+          (err) => {
+            return Promise.resolve({ status: false, message: err.code });
+          }
+        )
+        .catch((e) => {
+          throw new Error(e);
+        });
+
+    return Promise.resolve(result);
+
   }
 
-  async loginWithEmailAndPassword(credencials: ICredentials) {
-    try {
-      const { user, pass } = credencials;
-      const userCredentials: any = await this.auth.signInWithEmailAndPassword(
-        user,
-        pass
-      );
+  async loginWithEmailAndPassword(credencials: ICredentials): Promise<{ status: boolean, message: string }> {
 
-      this.auth.updateCurrentUser(userCredentials?.user);
-      const { email, uid } = userCredentials.user
-      this.setLog({email, uid})
-      return Promise.resolve(true);
-      
-    } catch (error) {
-      return Promise.resolve(false);
-    }
+    const fire: any = getAuth();
+    const { user, pass } = credencials;
+    const result = await signInWithEmailAndPassword(fire, user, pass)
+      .then(
+        (data) => {
+          const { user } = data;
+          const { email, uid } = user;
+          updateCurrentUser(fire, user);
+          this.setLog({ email: email!, uid })
+          return Promise.resolve({ status: true, message: 'OK' });
+        },
+        (err) => {
+          return Promise.resolve({ status: false, message: err.code });
+        }
+      )
+      .catch((e) => {
+        throw new Error(e);
+      });
+    return Promise.resolve(result);
   }
 
-  private updateDataUser({
-    uid,
-    email,
-    displayName,
-    photoURL,
-    firstName,
-    lastName,
-  }: any) {
+  private updateDataUser({ uid, email, displayName, photoURL, firstName, lastName, }: any) {
     if (!photoURL)
       photoURL = this.generateAvatarInicials(firstName!, lastName!);
 
-    const userRef: AngularFirestoreDocument<IUser> = this.firestore.doc(
+    const userRef: AngularFirestoreDocument<IUser> = this.store.doc(
       `users/${uid}`
     );
 
@@ -91,9 +94,8 @@ export class AuthService {
       photoURL,
       firstName,
       lastName,
-      date: moment().format()
+      date: moment().format(),
     };
-
     return userRef.set(data, { merge: true });
   }
 
@@ -101,16 +103,17 @@ export class AuthService {
     return createAvatar(inicialSprites, { seed: `${firstName}-${lastName}` });
   }
 
-  private setLog({ email, uid }:IUser){
-    const logsRef: AngularFirestoreDocument<any> = this.firestore.doc(`logs/${this.firestore.createId()}`);
-
+  private setLog({ email, uid }: IUser) {
+    const logsRef: AngularFirestoreDocument<any> = this.store.doc(
+      `logs/${this.store.createId()}`
+    );
     const data = {
       email,
       uid,
-      date: moment().format()
-    }
-    
-    logsRef.set(data,{merge:true});
+      date: moment().format(),
+    };
+
+    logsRef.set(data, { merge: true });
   }
 
   logOut() {
@@ -137,7 +140,7 @@ interface IUser {
   lastName?: string;
   somethingCustom?: string;
   password?: string;
-  date?:string
+  date?: string;
 }
 
 export interface IUserPublic {

@@ -1,3 +1,4 @@
+import { SnackbarComponent } from './../snackbar/snackbar.component';
 import {
   AfterViewInit,
   Component,
@@ -41,7 +42,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
   constructor(
     private dialogFactoryService: DialogFactoryService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: SnackbarComponent
   ) {}
 
   ngOnInit() {
@@ -78,13 +80,16 @@ export class LoginComponent implements AfterViewInit, OnInit {
   async onSubmit() {
     const user = this.loginForm.get('user')?.value;
     const pass = this.loginForm.get('password')?.value;
-    const response = await this.auth.loginWithEmailAndPassword({ user, pass });
-    if (response) {
-      this.closeDialog();
-      this.router.navigate(['/home']);
+    const { status, message } = await this.auth.loginWithEmailAndPassword({ user, pass });
+    if (status) {
+      setTimeout(() => {
+        this.closeDialog();
+        this.router.navigate(['/home']);
+      }, 1000);
     }
-    else
+    else{
       this.viewError = true
+    }
   }
 
   async onSubmitRegister() {
@@ -101,10 +106,12 @@ export class LoginComponent implements AfterViewInit, OnInit {
       firstName,
       lastName,
     };
-    const isCreated = await this.auth.createNewUserWithEmailAndPassword(data);
-
-    if (isCreated) {
-      this.changeTemplate(this.loginTemplate);
+    const {status, message} = await this.auth.createNewUserWithEmailAndPassword(data);
+    if (status) {
+      setTimeout(() => {
+        this.closeDialog();
+        this.router.navigate(['/home']);
+      }, 1000);
     }
     else{
       this.viewError = true
@@ -160,5 +167,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
       ]),
       password: new FormControl('', [Validators.required]),
     });
+  }
+
+  autocomplete(){
+    this.loginForm.get("user")?.setValue("test@demo.com")
+    this.loginForm.get("password")?.setValue("123456")
   }
 }
