@@ -60,11 +60,10 @@ export class AuthService {
       );
 
       this.auth.updateCurrentUser(userCredentials?.user);
-      const { email, uid, firstName, lastName } = userCredentials.user
-      console.log(userCredentials.user)
+      const { email, uid } = userCredentials.user
       this.setLog({email, uid})
-   
       return Promise.resolve(true);
+      
     } catch (error) {
       return Promise.resolve(false);
     }
