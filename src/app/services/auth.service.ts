@@ -1,5 +1,6 @@
+import { LoaderService } from './loader.service';
 import { Injectable, NgZone } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateCurrentUser } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateCurrentUser, signOut } from 'firebase/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -19,7 +20,7 @@ export class AuthService {
   constructor(
     private auth: AngularFireAuth,
     private store: AngularFirestore,
-    private ngZone: NgZone
+    private loader: LoaderService
   ) {
     this.user$ = this.auth.authState.pipe(
       switchMap((user) => {
@@ -40,8 +41,8 @@ export class AuthService {
       createUserWithEmailAndPassword(fire, email, password!)
         .then(
           (data) => {
-            const { user: credentials } = data
-            this.updateDataUser({ ...user, ...credentials })
+            const { uid } = data.user
+            this.updateDataUser({ ...user, uid })
             return Promise.resolve({ status: true, message: 'OK' });
           },
           (err) => {
@@ -70,8 +71,8 @@ export class AuthService {
           return Promise.resolve({ status: true, message: 'OK' });
         },
         (err) => {
-          
-          return Promise.resolve({ status: false, message: err.code.replace("auth/",'')  });
+
+          return Promise.resolve({ status: false, message: err.code.replace("auth/", '') });
         }
       )
       .catch((e) => {
@@ -117,8 +118,9 @@ export class AuthService {
     logsRef.set(data, { merge: true });
   }
 
-  logOut() {
-    this.auth.signOut();
+  async logOut() {
+    const auth = getAuth();
+    await signOut(auth)
   }
 
   authState() {

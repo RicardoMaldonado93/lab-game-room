@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   viewNav!:boolean;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private loader: LoaderService) {}
 
   ngOnInit(): void {
     this.auth.authState().subscribe( data =>{
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
     } )
   }
 
-  logOut() {
-    this.auth.logOut();
+  async logOut() {
+    await this.auth.logOut();
   }
 }

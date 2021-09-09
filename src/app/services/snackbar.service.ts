@@ -17,7 +17,7 @@ export class SnackbarService {
 
   openSuccess( message = "Success!! 🤖" ){
     this.snack.open(message, '', {
-      panelClass:["green-snackbar"],
+      panelClass:["success-snackbar"],
       ...this.__customConfig
     })
   }

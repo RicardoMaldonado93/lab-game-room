@@ -15,7 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -31,10 +31,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 //Angular Material Components
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-@NgModule({
-  declarations: [],
-  imports: [
-    MatButtonModule,
+const material = [
+  MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
     MatDatepickerModule,
@@ -64,8 +62,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSortModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
-  ],
+]
+@NgModule({
+  declarations: [],
+  imports: material,
+  exports: material,
   providers: [],
 })
 export class MaterialModule {}

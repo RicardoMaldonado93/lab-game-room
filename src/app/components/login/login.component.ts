@@ -1,3 +1,5 @@
+import { LoaderService } from './../../services/loader.service';
+import { SpinnerComponent } from './../spinner/spinner.component';
 import { SnackbarService } from './../../services/snackbar.service';
 import {
   AfterViewInit,
@@ -25,7 +27,7 @@ import { DialogService } from './../../services/dialog.service';
 })
 export class LoginComponent implements AfterViewInit, OnInit {
   title: string = 'Login';
-  viewError!:boolean;
+  viewError!: boolean;
   private __emailValidator: ValidatorFn = Validators.pattern(
     '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
   );
@@ -43,11 +45,13 @@ export class LoginComponent implements AfterViewInit, OnInit {
     private dialogFactoryService: DialogFactoryService,
     private auth: AuthService,
     private router: Router,
-    private snackBar: SnackbarService
-  ) {}
+    private snackBar: SnackbarService,
+    private loader: LoaderService
+  ) { }
 
   ngOnInit() {
     this.formInicialization();
+
   }
 
   dispatchDialog() {
@@ -79,6 +83,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   async onSubmit() {
+    this.loader.show();
     const user = this.loginForm.get('user')?.value;
     const pass = this.loginForm.get('password')?.value;
     const { status, message } = await this.auth.loginWithEmailAndPassword({ user, pass });
@@ -86,16 +91,20 @@ export class LoginComponent implements AfterViewInit, OnInit {
       setTimeout(() => {
         this.closeDialog();
         this.router.navigate(['/home']);
+        this.loader.hide();
       }, 1000);
     }
-    else{
+    else {
       this.viewError = true;
+      this.loader.hide();
       const msg = this.setError(message);
       this.snackBar.openError(`${msg} 🤕`)
     }
+
   }
 
   async onSubmitRegister() {
+    this.loader.show();
     const displayName = this.registerForm.get('userName')?.value;
     const password = this.registerForm.get('password')?.value;
     const email = this.registerForm.get('email')?.value;
@@ -109,20 +118,26 @@ export class LoginComponent implements AfterViewInit, OnInit {
       firstName,
       lastName,
     };
-    const {status, message} = await this.auth.createNewUserWithEmailAndPassword(data);
+    const { status, message } = await this.auth.createNewUserWithEmailAndPassword(data);
     if (status) {
       this.snackBar.openSuccess(`User created successfully 😁`)
       setTimeout(() => {
         this.closeDialog();
         this.router.navigate(['/home']);
+        this.loader.hide()
       }, 1000);
     }
-    else{
+    else {
       const msg = this.setError(message);
+      this.loader.hide()
+      this.registerForm.get("email")?.setValue('')
       this.registerForm.get("password")?.setValue('')
       this.registerForm.get("confirmPassword")?.setValue('')
-      this.viewError = true,
+      this.viewError = true;
       this.snackBar.openError(`${msg} 🤕`)
+      setTimeout(() => {
+        this.viewError = false
+      }, 1000);
     }
   }
 
@@ -177,15 +192,15 @@ export class LoginComponent implements AfterViewInit, OnInit {
     });
   }
 
-  autocomplete(){
+  autocomplete() {
     this.loginForm.get("user")?.setValue("test@demo.com")
     this.loginForm.get("password")?.setValue("123456")
   }
 
-  private setError(errorMessage:string){
-    const msg:any = {
-      'email-already-exists' : "Email already exists!",
-      'email-already-in-use' : "Email already in use!",
+  private setError(errorMessage: string) {
+    const msg: any = {
+      'email-already-exists': "Email already exists!",
+      'email-already-in-use': "Email already in use!",
       "invalid-password": "Invalid password!",
     }
 

@@ -1,3 +1,4 @@
+import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 @Component({
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'lab-iv';
 
-  constructor() {}
+  constructor() { }
 }
