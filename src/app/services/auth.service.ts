@@ -45,7 +45,7 @@ export class AuthService {
             return Promise.resolve({ status: true, message: 'OK' });
           },
           (err) => {
-            return Promise.resolve({ status: false, message: err.code });
+            return Promise.resolve({ status: false, message: err.code.replace("auth/", '') });
           }
         )
         .catch((e) => {
@@ -70,7 +70,8 @@ export class AuthService {
           return Promise.resolve({ status: true, message: 'OK' });
         },
         (err) => {
-          return Promise.resolve({ status: false, message: err.code });
+          
+          return Promise.resolve({ status: false, message: err.code.replace("auth/",'')  });
         }
       )
       .catch((e) => {
@@ -151,3 +152,4 @@ export interface IUserPublic {
   firstName?: string;
   lastName?: string;
 }
+

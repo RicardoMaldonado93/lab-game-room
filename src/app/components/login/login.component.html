@@ -5,7 +5,9 @@
       <div class="input-container">
         <input
           [class.error]="
-            loginForm.get('user')?.invalid && loginForm.get('user')?.touched
+            (loginForm.get('user')?.invalid &&
+              loginForm.get('user')?.touched) ||
+            viewError
           "
           formControlName="user"
           type="email"
@@ -19,13 +21,15 @@
             loginForm.get('user')?.invalid && loginForm.get('user')?.touched
           "
           class="text-danger"
-          >El email no es valido</small
+          >Email invalid</small
         >
       </div>
       <div class="input-container">
         <input
           [class.error]="
-            loginForm.get('user')?.invalid && loginForm.get('user')?.touched
+            (loginForm.get('user')?.invalid &&
+              loginForm.get('user')?.touched) ||
+            viewError
           "
           formControlName="password"
           type="password"
@@ -40,10 +44,14 @@
             loginForm.get('password')?.touched
           "
           class="text-danger"
-          >El usuario no es valido</small
+          >Password invalid</small
+        >
+        <small
+          class="animate__animated animate__headShake text-danger"
+          [hidden]="!viewError"
+          >Incorrect email or password.</small
         >
       </div>
-      <small class="text-danger" *ngIf="viewError">Incorrect email or password.</small>
       <button
         type="submit"
         class="btn btn-primary btn-block btn-large"
@@ -63,7 +71,7 @@
       <button
         type="button"
         class="btn btn-block btn-large"
-        style="opacity: 0.40;"
+        style="opacity: 0.4"
         (click)="autocomplete()"
       >
         ~ Autocomplete ~
@@ -90,12 +98,14 @@
           autocomplete="off"
         />
         <small
-          *ngIf="
-            registerForm.get('userName')?.invalid &&
-            registerForm.get('userName')?.touched
+          [hidden]="
+            !(
+              registerForm.get('userName')?.invalid &&
+              registerForm.get('userName')?.touched
+            )
           "
-          class="text-danger"
-          >El usuario no es valido</small
+          class="text-danger animate__animated animate__headShake"
+          >Username invalid</small
         >
       </div>
       <div class="input-container">
@@ -112,12 +122,14 @@
           autocomplete="off"
         />
         <small
-          *ngIf="
-            registerForm.get('firstName')?.invalid &&
-            registerForm.get('firstName')?.touched
+          [hidden]="
+            !(
+              registerForm.get('firstName')?.invalid &&
+              registerForm.get('firstName')?.touched
+            )
           "
-          class="text-danger"
-          >El usuario no es valido</small
+          class="text-danger animate__animated animate__headShake"
+          >FirstName invalid</small
         >
       </div>
       <div class="input-container">
@@ -134,19 +146,22 @@
           autocomplete="off"
         />
         <small
-          *ngIf="
-            registerForm.get('lastName')?.invalid &&
-            registerForm.get('lastName')?.touched
+          [hidden]="
+            !(
+              registerForm.get('lastName')?.invalid &&
+              registerForm.get('lastName')?.touched
+            )
           "
-          class="text-danger"
-          >El usuario no es valido</small
+          class="text-danger animate__animated animate__headShake"
+          >LastName invalid</small
         >
       </div>
       <div class="input-container">
         <input
           [class.error]="
-            registerForm.get('email')?.invalid &&
-            registerForm.get('email')?.touched
+            (registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched) ||
+            viewError
           "
           formControlName="email"
           type="email"
@@ -156,19 +171,22 @@
           autocomplete="off"
         />
         <small
-          *ngIf="
-            registerForm.get('email')?.errors &&
-            registerForm.get('email')?.touched
+          [hidden]="
+            !(
+              registerForm.get('email')?.errors &&
+              registerForm.get('email')?.touched
+            )
           "
-          class="text-danger"
-          >El email no es valido</small
+          class="text-danger animate__animated animate__headShake"
+          >Email invalid</small
         >
       </div>
       <div class="input-container">
         <input
           [class.error]="
-            registerForm.get('password')?.invalid &&
-            registerForm.get('password')?.touched
+            (registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched) ||
+            viewError
           "
           formControlName="password"
           type="password"
@@ -177,15 +195,23 @@
           required="required"
           autocomplete="off"
         />
-        <small *ngIf="registerForm.get('password')?.invalid" class="text-danger"
-          >El password no es valido</small
+        <small
+          [hidden]="
+            !(
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            )
+          "
+          class="text-danger animate__animated animate__headShake"
+          >Password invalid</small
         >
       </div>
       <div class="input-container">
         <input
           [class.error]="
-            registerForm.get('confirmPassword')?.invalid &&
-            registerForm.get('confirmPassword')?.touched
+            (registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched) ||
+            viewError
           "
           formControlName="confirmPassword"
           type="password"
@@ -195,13 +221,21 @@
           autocomplete="off"
         />
         <small
-          *ngIf="registerForm.get('confirmPassword')?.invalid"
-          class="text-danger"
-          >El password no coincide</small
+          [hidden]="
+            !(
+              registerForm.get('confirmPassword')?.invalid &&
+              registerForm.get('confirmPassword')?.touched
+            )
+          "
+          class="text-danger animate__animated animate__headShake"
+          >Password no match</small
         >
       </div>
-      <small class="text-danger" *ngIf="viewError">Incorrect email or password.</small>
-      <button type="submit" class="btn btn-primary btn-block btn-large" [disabled]="!registerForm.valid">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block btn-large"
+        [disabled]="!registerForm.valid"
+      >
         Submit
       </button>
     </form>

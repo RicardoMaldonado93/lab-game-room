@@ -57,6 +57,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
   }
 
   changeTemplate(templateName: TemplateRef<any>) {
+    this.viewError = false;
     this.dialog.setTemplate(templateName);
   }
   closeDialog() {
@@ -88,8 +89,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
       }, 1000);
     }
     else{
-      this.snackBar.openError()
-      this.viewError = true
+      this.viewError = true;
+      const msg = this.setError(message);
+      this.snackBar.openError(`${msg} 🤕`)
     }
   }
 
@@ -109,13 +111,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
     };
     const {status, message} = await this.auth.createNewUserWithEmailAndPassword(data);
     if (status) {
+      this.snackBar.openSuccess(`User created successfully 😁`)
       setTimeout(() => {
         this.closeDialog();
         this.router.navigate(['/home']);
       }, 1000);
     }
     else{
-      this.viewError = true
+      const msg = this.setError(message);
+      this.registerForm.get("password")?.setValue('')
+      this.registerForm.get("confirmPassword")?.setValue('')
+      this.viewError = true,
+      this.snackBar.openError(`${msg} 🤕`)
     }
   }
 
@@ -173,5 +180,15 @@ export class LoginComponent implements AfterViewInit, OnInit {
   autocomplete(){
     this.loginForm.get("user")?.setValue("test@demo.com")
     this.loginForm.get("password")?.setValue("123456")
+  }
+
+  private setError(errorMessage:string){
+    const msg:any = {
+      'email-already-exists' : "Email already exists!",
+      'email-already-in-use' : "Email already in use!",
+      "invalid-password": "Invalid password!",
+    }
+
+    return msg[errorMessage] || "An error ocurred!"
   }
 }
