@@ -1,23 +1,28 @@
 $error: #d9534f
 $success: #5cb85c
-$aux: #22bb33
 
-// ::ng-deep .success-snackbar
-//     background: $success
-//     >*
-//         display: flex
-//         flex-direction: row
-//         justify-content: center
-//         color: white
-//         width: 100%
-//     > button
-//         background-color: $success
-//         text-align: center !important
-//         justify-content: center
-//         align-self: center
+::ng-deep .success-snackbar
+    background: $success
+    font-weight: bolder
+    letter-spacing: 1.33px
+    text-shadow: 1px 1px #1d1d1c
+    >*
+        display: flex
+        flex-direction: row
+        justify-content: center
+        color: white
+        width: 100%
+    > button
+        background-color: $success
+        text-align: center !important
+        justify-content: center
+        align-self: center
 
 ::ng-deep .error-snackbar
     background: $error
+    font-weight: bolder
+    letter-spacing: 1.33px
+    text-shadow: 1px 1px #1d1d1c
     >*
         display: flex
         flex-direction: row
@@ -29,23 +34,3 @@ $aux: #22bb33
         text-align: center !important
         justify-content: center
         align-self: center
-
-::ng-deep .green-snackbar
-    background: #22bb33
-    >*
-        display: flex
-        flex-direction: row
-        justify-content: center
-        color: white
-        font-weight: "bolder"
-        width: 100%
-        text-align: center !important
-        justify-items: center !important
-        align-self: center !important
-        align-content: center !important
-    > button
-        background-color: #22bb33
-        text-align: center !important
-        justify-content: center
-        align-self: center
-

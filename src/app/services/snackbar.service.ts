@@ -24,8 +24,9 @@ export class SnackbarService {
 
   openError( message = "Error!! 🤕" ){
     this.snack.open(message, '', {
-      panelClass:["error-snackbar"],
-      ...this.__customConfig
+      ...this.__customConfig,
+      panelClass:["error-snackbar"]
+
     })
   }
 }

@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../services/snackbar.service';
 import {
   AfterViewInit,
   Component,
@@ -42,6 +43,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     private dialogFactoryService: DialogFactoryService,
     private auth: AuthService,
     private router: Router,
+    private snackBar: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
       }, 1000);
     }
     else{
+      this.snackBar.openError()
       this.viewError = true
     }
   }
