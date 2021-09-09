@@ -1,4 +1,3 @@
-import { SnackbarComponent } from './../snackbar/snackbar.component';
 import {
   AfterViewInit,
   Component,
@@ -43,7 +42,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
     private dialogFactoryService: DialogFactoryService,
     private auth: AuthService,
     private router: Router,
-    private snackBar: SnackbarComponent
   ) {}
 
   ngOnInit() {
