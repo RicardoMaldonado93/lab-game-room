@@ -1,0 +1,51 @@
+<div
+  class="
+    col-sm-3 col-sm-offset-4
+    frame
+    animate__animated animate__slideInUp animate__delay-3s
+  "
+  id="app-mensajes"
+  (dblclick)="openClose()"
+>
+  <div class="loader" [hidden]="!loader">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
+  <small class="helper">double click to minimize</small>
+  <ul class="messages" id="chats">
+    <li
+      *ngFor="let chat of cs.chats"
+      [ngClass]="cs.user?.uid == chat?.uid ? 'msj-rta macro' : 'msj macro'"
+    >
+      <div
+        [ngClass]="cs.user?.uid == chat?.uid ? 'text text-r' : 'text text-l'"
+      >
+        <small
+          class="text-left"
+          [ngStyle]="{ color: cs.user?.uid != chat?.uid ? 'aqua' : '' }"
+          >{{ cs.user?.uid == chat?.uid ? "" : "~ " + chat.sender + " ~" }}
+        </small>
+        <p>{{ chat.message }}</p>
+        <p>
+          <small>{{ formatDate(chat.createAt) }}</small>
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div>
+    <input
+      class="mytext"
+      placeholder="Type a message"
+      [(ngModel)]="message"
+      (keyup.enter)="enviarMensaje()"
+    />
+  </div>
+</div>
+
+<div id="chat-btn" [hidden]="!minimized" class="">
+  <button
+    class="btn-chat animate__animated animate__slideInRight animate__delay-1s"
+    (click)="openClose()"
+  >
+    Chat
+  </button>
+</div>

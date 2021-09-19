@@ -6,16 +6,35 @@
 
 h1
     font-size: 80px
-    color: #fcfcfc
+    color: whitesmoke
     display: flex
     justify-content: center
     flex-direction: row
     margin: 1rem 0
     height: 60px
+    text-transform: uppercase
+
+h1:nth-child(2n)
+    margin-top: 10px
+    font-size: 8rem
 
 h1:nth-child(n+1)
-    margin-top: 20px
+    margin-top: 45px
+
+span
+    font-size: 5rem
 
 @media screen and (max-width:414px)
     h1
-        font-size:60px
+        font-size: 60px
+
+
+
+.pulsate
+    animation: pulsate 3.5s infinite alternate
+
+@keyframes pulsate
+    100%
+        text-shadow: 0 0 7px #fff,0 0 10px #fff,0 0 21px #fff,0 0 42px #8200bf,0 0 82px #8200bf,0 0 92px #8200bf,0 0 102px #8200bf,0 0 151px #8200bf
+    0%
+        text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 10px #0fa, 0 0 45px #0fa, 0 0 55px #0fa, 0 0 70px #0fa, 0 0 80px #0fa

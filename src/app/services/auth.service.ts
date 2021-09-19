@@ -1,16 +1,15 @@
-import { LoaderService } from './loader.service';
-import { Injectable, NgZone } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateCurrentUser, signOut } from 'firebase/auth';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
+  AngularFirestoreDocument
 } from '@angular/fire/compat/firestore';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateCurrentUser } from 'firebase/auth';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +19,6 @@ export class AuthService {
   constructor(
     private auth: AngularFireAuth,
     private store: AngularFirestore,
-    private loader: LoaderService
   ) {
     this.user$ = this.auth.authState.pipe(
       switchMap((user) => {
@@ -125,6 +123,10 @@ export class AuthService {
 
   authState() {
     return this.auth.authState;
+  }
+
+  async getUser(){
+    return await this.auth.user.toPromise()
   }
 }
 

@@ -15,7 +15,7 @@ const routes: Routes = [
   },
 ];
 @NgModule({
-  declarations: [ProfileComponent, SafeHtmlPipe],
+  declarations: [ProfileComponent,SafeHtmlPipe],
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [ProfileComponent],
 })

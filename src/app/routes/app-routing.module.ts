@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { formsNames } from './routersNames';
-const { LOGIN, HOME, PROFILE, ABOUT_ME } = formsNames;
+
+const { LOGIN, HOME, PROFILE, ABOUT_ME, GAMES } = formsNames;
 
 const appRoutes: Routes = [
   {
@@ -28,6 +28,11 @@ const appRoutes: Routes = [
     path: LOGIN,
     loadChildren: () =>
       import('../pages/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: GAMES,
+    loadChildren: ()=>
+      import('../pages/games/games.module').then( m => m.GamesModule )
   },
   { path: '', redirectTo: `${HOME}`, pathMatch: 'full' },
   { path: '**', redirectTo: `${HOME}` },
