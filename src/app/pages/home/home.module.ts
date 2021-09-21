@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../routes/guards/auth.guard';
 import { formsNames } from './../../routes/routersNames';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,11 +9,9 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivateChild:[AuthGuard]
   },
-  {
-    path: '**',
-    redirectTo: '',
-  },
+  
 ];
 @NgModule({
   declarations: [HomeComponent],

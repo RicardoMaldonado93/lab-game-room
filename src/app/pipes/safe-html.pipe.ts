@@ -5,7 +5,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class SafeHtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: any) {
-    return this.sanitizer.bypassSecurityTrustHtml(value);
+  transform(value:any, classCss?:string) {
+    if(!value) return 
+
+    if(classCss){
+      const img = String(value).replace("<svg", `<svg class='${classCss}'`)
+      return this.sanitizer.bypassSecurityTrustHtml(img);
+    } 
+    else
+      return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }

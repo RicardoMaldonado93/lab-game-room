@@ -6,9 +6,9 @@ import {
 } from '@angular/fire/compat/firestore';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateCurrentUser } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateCurrentUser,  } from 'firebase/auth';
 import * as moment from 'moment';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
@@ -117,8 +117,7 @@ export class AuthService {
   }
 
   async logOut() {
-    const auth = getAuth();
-    await signOut(auth)
+    await this.auth.signOut()
   }
 
   authState() {

@@ -1,5 +1,6 @@
+import { Observable } from 'rxjs';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { AuthService } from './services/auth.service';
+import { AuthService, IUserPublic } from './services/auth.service';
 import { Component } from '@angular/core';
 @Component({
   selector: 'lb-root',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
-  title = 'lab-iv';
+  user$!:Observable<IUserPublic>
 
-  constructor() { }
+  constructor(private auth:AuthService) {
+    this.user$ = this.auth.user$
+  }
 }

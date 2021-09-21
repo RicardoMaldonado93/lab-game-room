@@ -1,7 +1,7 @@
 import { formsNames } from './../routersNames';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { AuthService } from './../../services/auth.service';
 
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(next: any, state: any): Observable<boolean> {
-    return this.auth.user$.pipe(
+     return this.auth.user$.pipe(
       take(1),
       map((user) => !!user),
       tap((loggedIn) => {
@@ -23,4 +23,5 @@ export class AuthGuard implements CanActivate {
       })
     );
   }
+
 }

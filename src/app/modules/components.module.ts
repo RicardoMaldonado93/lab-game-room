@@ -1,3 +1,5 @@
+import { PipesModule } from './pipes.module';
+import { SafeHtmlPipe } from './../pipes/safe-html.pipe';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,13 +19,14 @@ import { SpinnerComponent } from './../components/spinner/spinner.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    PipesModule
   ],
   declarations: [
     NavbarComponent,
     FooterComponent,
     DialogComponent,
     SpinnerComponent,
-    ChatComponent
+    ChatComponent,
   ],
   exports: [NavbarComponent, FooterComponent, SpinnerComponent, ChatComponent],
   providers: [SpinnerComponent],

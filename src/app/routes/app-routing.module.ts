@@ -7,6 +7,11 @@ const { LOGIN, HOME, PROFILE, ABOUT_ME, GAMES } = formsNames;
 
 const appRoutes: Routes = [
   {
+    path: LOGIN,
+    loadChildren: () =>
+      import('../pages/login/login.module').then((m) => m.LoginModule),
+  },
+  {
     path: HOME,
     loadChildren: () =>
       import('../pages/home/home.module').then((m) => m.HomeModule),
@@ -25,14 +30,10 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: LOGIN,
-    loadChildren: () =>
-      import('../pages/login/login.module').then((m) => m.LoginModule),
-  },
-  {
     path: GAMES,
-    loadChildren: ()=>
-      import('../pages/games/games.module').then( m => m.GamesModule )
+    loadChildren: () =>
+      import('../pages/games/games.module').then((m) => m.GamesModule),
+    canActivate: [AuthGuard],
   },
   { path: '', redirectTo: `${HOME}`, pathMatch: 'full' },
   { path: '**', redirectTo: `${HOME}` },

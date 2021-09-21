@@ -123,7 +123,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
       this.snackBar.openSuccess(`User created successfully 😁`);
       setTimeout(() => {
         this.closeDialog();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/']);
         this.loader.hide();
       }, 1000);
     } else {
@@ -188,9 +188,14 @@ export class LoginComponent implements AfterViewInit, OnInit {
     });
   }
 
-  autocomplete() {
-    this.loginForm.get('user')?.setValue('test@demo.com');
-    this.loginForm.get('password')?.setValue('123456');
+  autocomplete(user:number) {
+    if(user == 1){
+      this.loginForm.get('user')?.setValue('test@demo.com');
+      this.loginForm.get('password')?.setValue('123456');
+    }
+    else
+      this.loginForm.get('user')?.setValue('maldonadoricardo93@gmail.com');
+      this.loginForm.get('password')?.setValue('12345678');
   }
 
   private setError(errorMessage: string) {

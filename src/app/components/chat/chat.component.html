@@ -1,10 +1,18 @@
+<div class="users animate__animated animate__slideInRight animate__delay-3s" id="users-connected">
+  <ng-container *ngFor="let usr of cs.users" >
+    <div (click)="sendMessage(usr)" *ngIf="usr.uid != cs.user?.uid">
+      <div [innerHtml]="usr.avatar | safeHtml:'avatar'" class="avatar-container" data-toggle="tooltip" data-placement="top" title={{usr.displayName}}></div>
+      <div class="status" [ngClass]="usr.state"></div>
+    </div>
+  </ng-container>
+</div>
 <div
   class="
     col-sm-3 col-sm-offset-4
     frame
     animate__animated animate__slideInUp animate__delay-3s
   "
-  id="app-mensajes"
+  id="chats-container"
   (dblclick)="openClose()"
 >
   <div class="loader" [hidden]="!loader">
