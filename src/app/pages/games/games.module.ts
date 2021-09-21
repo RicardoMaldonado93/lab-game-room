@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { MayorMenorComponent } from './mayor-menor/mayor-menor.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [AhorcadoComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class GamesModule {}

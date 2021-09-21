@@ -7,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AhorcadoComponent implements OnInit {
 
-  constructor() { }
+  alphabet:string[] = [];
+
+  constructor() { 
+    const alph = "abcdefghijklmnñopqrstuvwxyz";
+
+    this.alphabet = alph.split('').map( k => k.toUpperCase())
+
+    console.log(this.alphabet)
+  }
 
   ngOnInit(): void {
   }
