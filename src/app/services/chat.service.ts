@@ -11,6 +11,7 @@ export class ChatService {
   users: IState[] = [];
   user!: IUserPublic;
   chatRoom: any;
+  session!:{ user:string, id:string }
 
   constructor(
     private auth: AuthService,
@@ -20,6 +21,7 @@ export class ChatService {
     this.auth.user$.subscribe((usr) => {
       this.user = usr;
       this.connected();
+      this.getLastChat();
     });
   }
 
@@ -31,17 +33,14 @@ export class ChatService {
       .valueChanges()
       .pipe(
         map((m) => {
-          this.chats = m.filter(msg => msg.roomId === this.chatRoom);
+          this.chats = m.filter((msg) => msg.roomId === this.chatRoom);
         })
       );
   }
 
   async createChat(toUserID: string) {
     await this.findRooms(toUserID);
-    // this.findRooms(toUserID).subscribe( r =>{
-
-    // console.log("recover", this.chatRoom)
-    if(!this.chatRoom){
+    if (!this.chatRoom) {
       const chatRoom = {
         user1: this.user.uid,
         user2: toUserID!,
@@ -50,13 +49,12 @@ export class ChatService {
       };
 
       this.chatRoom = chatRoom.id;
-      console.log("genere un registro")
-      this.db.object(`rooms/${chatRoom.id}`).set(chatRoom)
+      this.db.object(`rooms/${chatRoom.id}`).set(chatRoom);
+    } else {
+      this.loadChats().subscribe(() => {});
     }
-    else{
-      this.loadChats().subscribe(()=>{})
-    }
-    // })
+
+    this.lastChat(toUserID);
   }
 
   sendMessage(message: string) {
@@ -65,7 +63,7 @@ export class ChatService {
       message,
       uid: this.user.uid,
       createAt: Date.now(),
-      roomId: this.chatRoom
+      roomId: this.chatRoom,
     };
     return this.db.list<IChat>('chats').push(chat);
   }
@@ -107,47 +105,31 @@ export class ChatService {
   }
 
   findRooms(userID?: any) {
-    // return this.db
-    //   .list<IRoom>('rooms', (ref) => )
     return new Promise((resolve) => {
       this.db.list('rooms').query.on('value', (ref) => {
         const rooms: [IRoom] = ref.exportVal();
-        if(rooms){
+        if (rooms) {
           const obj = Object.entries(rooms).find(
             ({ '0': key, '1': value }) =>
               (value?.user1 === this.user.uid && value?.user2 === userID) ||
               (value?.user1 === userID && value?.user2 === this.user.uid)
           );
-          this.chatRoom = obj?.[0]
+          this.chatRoom = obj?.[0];
         }
-        // const result = rooms.find( r =>
-        //   (value?.user1 === this.user.uid && r?.user2 === userID) || (r?.user1 === userID && r?.user2 === this.user.uid )
-        // )
-        // this.chatRoom =  result?.id
         resolve(null);
       });
     });
+  }
 
-    // return this.db
-    // .list<IRoom>('rooms')
-    // .snapshotChanges()
-    // .pipe(
-    //   map((rooms) => rooms.map((m) => m.payload.val() )),
-    //   map((rooms) => {
-    //     console.log( "actual: ", this.user.uid )
-    //     console.log( "to: ", userID )
-    //     const result = rooms.find( r => (r?.user1 === this.user.uid && r?.user2 === userID) || (r?.user1 === userID && r?.user2 === this.user.uid ))
-    //     console.log(result)
-    //     this.chatRoom = result?.id
-    //     // const room = rooms.find(
-    //     //   (room) =>
-    //     //     (room?.user1 == this.user.uid && room?.user2 == userID) || (room?.user1 == userID && room?.user2 == this.user.uid)
-    //     // );
+  private lastChat(userID:string) {
+    this.db.object('lastSession').set({ id: this.chatRoom, user:userID });
+  }
 
-    //     // this.chatRoom= room?.id
-    //   }),
-
-    // );
+  private getLastChat() {
+    this.db.object('lastSession').query.on('value', (ref) => {
+      this.chatRoom = ref.val().id;
+      this.session = ref.val()
+    });
   }
 }
 

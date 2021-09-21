@@ -1,7 +1,7 @@
 <div class="users animate__animated animate__slideInRight animate__delay-3s" id="users-connected">
   <ng-container *ngFor="let usr of cs.users" >
     <div (click)="sendMessage(usr)" *ngIf="usr.uid != cs.user?.uid">
-      <div [innerHtml]="usr.avatar | safeHtml:'avatar'" class="avatar-container" data-toggle="tooltip" data-placement="top" title={{usr.displayName}}></div>
+      <div [innerHtml]="usr.avatar | safeHtml:'avatar'" class="avatar-container" data-toggle="tooltip" data-placement="top" title={{usr.displayName}} [ngClass]="userSelected?.uid == usr.uid ? 'user-selected' : ''"></div>
       <div class="status" [ngClass]="usr.state"></div>
     </div>
   </ng-container>
