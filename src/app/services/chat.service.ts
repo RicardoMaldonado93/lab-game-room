@@ -127,9 +127,14 @@ export class ChatService {
 
   private getLastChat() {
     this.db.object('lastSession').query.on('value', (ref) => {
-      if(ref.key === this.user.uid){
-        this.chatRoom = ref.val().id;
-        this.session = ref.val() || null
+      console.log(ref.key)
+      const keys:string[] = Object.keys(ref.val())
+      const key = keys.find( id => id === this.user.uid ) || '';
+      const room = ref.val()[key];
+
+      if(room){
+        this.chatRoom = room?.id;
+        this.session = room?.user || null
       }
     });
   }
