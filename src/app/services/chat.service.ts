@@ -122,13 +122,15 @@ export class ChatService {
   }
 
   private lastChat(userID:string) {
-    this.db.object('lastSession').set({ id: this.chatRoom, user:userID });
+    this.db.object(`lastSession/${this.user.uid}`).set({ id: this.chatRoom, user:userID });
   }
 
   private getLastChat() {
     this.db.object('lastSession').query.on('value', (ref) => {
-      this.chatRoom = ref.val().id;
-      this.session = ref.val()
+      if(ref.key === this.user.uid){
+        this.chatRoom = ref.val().id;
+        this.session = ref.val() || null
+      }
     });
   }
 }
