@@ -1,6 +1,6 @@
 import { DialogData } from '../models/dialogModel';
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog'; 
 import { first } from 'rxjs/operators';
 import { DialogComponent } from '../components/modal/modal.component';
 
@@ -11,22 +11,20 @@ import { DialogService } from './dialog.service';
   providedIn: 'root',
 })
 export class DialogFactoryService<T = undefined> {
-  constructor(private dialog: MatDialog) {}
+  private dialogRef!:MatDialogRef<any,any>;
 
+  constructor(private dialog: MatDialog) {}
   open(
     dialogData: DialogData<T>,
     options: MatDialogConfig = { width: '500', disableClose: true }
   ): DialogService<T> {
-    const dialogRef = this.dialog.open<
-      DialogComponent<T>,
-      DialogData<MatDialogConfig>
-    >(DialogComponent, {
-      data: dialogData,
-      ...options,
-    });
+    this.dialogRef = this.dialog.open<DialogComponent<T>,DialogData<MatDialogConfig>>(DialogComponent, { data: dialogData,...options,});
+    this.dialogRef.afterClosed().pipe(first());
 
-    dialogRef.afterClosed().pipe(first());
+    return new DialogService(this.dialogRef);
+  }
 
-    return new DialogService(dialogRef);
+  close(result?:any){
+    return this.dialogRef.close(result);
   }
 }

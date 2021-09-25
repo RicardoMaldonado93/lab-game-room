@@ -1,0 +1,134 @@
+<div class="container animate__animated animate__backInUp" *ngIf="playNewGame">
+  <div class="game-container">
+    <div class="hud">
+      <div class="score">
+        <span>Score: {{ score }}</span>
+      </div>
+      <div class="title">
+        <span>Minor or Mayor</span>
+      </div>
+      <div class="life">
+        <div class="d-flex flex-row justify-content-center">
+          <span>Life: &nbsp;</span>
+          <ng-container *ngFor="let heart of [].constructor(life); index as i">
+            <span class="animate__animated animate__pulse animate__infinite">{{
+              i % 2 == 0 ? "♠️" : "♣️"
+            }}</span>
+          </ng-container>
+          <ng-container *ngIf="life == 0">
+            <p>💀</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="cards">
+      <div class="card-container" id="card-reference">
+        <img
+          class="front"
+          src="../../../../assets/images/games/mayor_menor/back-blue.png"
+          alt="blue-card"
+        />
+        <span class="number">{{ number1 }}</span>
+        <img
+          class="back"
+          src="../../../../assets/images/games/mayor_menor/front-blue.png"
+          alt="blue-card"
+        />
+      </div>
+      <div class="card-container" id="card-result">
+        <img
+          class="front"
+          src="../../../../assets/images/games/mayor_menor/back-red.png"
+          alt="blue-card"
+        />
+        <span class="number" *ngIf="viewResult">{{ number2 }}</span>
+        <img
+          class="back"
+          src="../../../../assets/images/games/mayor_menor/front-red.png"
+          alt="blue-card"
+        />
+      </div>
+    </div>
+    <div class="btn-container">
+      <div class="multi-button">
+        <button (click)="choice('minor')" [disabled]="disabledButtons">
+          Minor
+        </button>
+        <button (click)="choice('mayor')" [disabled]="disabledButtons">
+          Mayor
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #gameOver>
+  <div class="result">
+    <div class="container-result">
+      <span
+        class="label-result animate__animated animate__fadeIn animate__delay-1s"
+        >Your score is:</span
+      >
+      <span
+        class="
+          number-result
+          animate__animated animate__fadeIn animate__delay-2s
+        "
+        >{{ score }}</span
+      >
+      <img
+        class="img-result"
+        src="../../../../assets/images/games/mayor_menor/results.png"
+        alt="result"
+      />
+    </div>
+    <div class="multi-button">
+      <button (click)="retry()" [disabled]="disableRetryButton">
+        Play Again
+      </button>
+    </div>
+    <div class="multi-button">
+      <button (click)="returnLater()">
+        exit
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #start>
+  <div class="result">
+    <div class="container-result">
+      <span
+      style="top: -45px;"
+        class="label-result animate__animated animate__fadeIn animate__delay-1s"
+        >Ready</span
+      >
+      <span
+        style="top: -9px;"
+        class="label-result animate__animated animate__fadeIn animate__delay-1s"
+        >to</span
+      >
+      <span
+        style="top: 25px"
+        class="label-result animate__animated animate__fadeIn animate__delay-1s"
+        >Play ?</span
+      >
+      <img
+        class="img-result"
+        src="../../../../assets/images/games/mayor_menor/results.png"
+        alt="result"
+      />
+    </div>
+    <div class="multi-button">
+      <button (click)="playGame()">
+        Play
+      </button>
+    </div>
+    <div class="multi-button">
+      <button (click)="returnLater()">
+        return later
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,4 +1,5 @@
-import { MayorMenorComponent } from './mayor-menor/mayor-menor.component';
+import { MaterialModule } from './../../modules/angular-material.module';
+import { MinorMayorComponent } from './minor-mayor/minor-mayor.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -10,13 +11,13 @@ const routes: Routes = [
     component: AhorcadoComponent,
   },
   {
-    path: 'menor-o-mayor',
-    component: MayorMenorComponent,
+    path: 'minor-or-mayor',
+    component: MinorMayorComponent,
   },
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [MinorMayorComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class GamesModule {}
