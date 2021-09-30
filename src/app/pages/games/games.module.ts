@@ -4,6 +4,7 @@ import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ShooterComponent } from './shooter/shooter.component';
 
 const routes: Routes = [
   {
@@ -14,10 +15,14 @@ const routes: Routes = [
     path: 'minor-or-mayor',
     component: MinorMayorComponent,
   },
+  {
+    path: 'shooter',
+    component: ShooterComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [MinorMayorComponent],
+  declarations: [MinorMayorComponent, ShooterComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class GamesModule {}

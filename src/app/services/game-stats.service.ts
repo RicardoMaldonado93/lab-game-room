@@ -15,7 +15,7 @@ export class GameStatsService {
     });
   }
 
-  setGame(game:'hung'|'asked'|'minor-mayor'|'geometric-rumble') {
+  setGame(game:'hung'|'asked'|'minor-mayor'|'earth-collapse') {
     this.gameId = games[game];
   }
 
@@ -40,5 +40,5 @@ enum games {
   'hung',
   'asked',
   'minor-mayor',
-  'geometric-rumble',
+  'earth-collapse',
 }

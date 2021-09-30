@@ -29,6 +29,7 @@
     "animate.css": "^4.1.1",
     "express": "^4.17.1",
     "firebase": "^9.0.0",
+    "gsap": "^3.8.0",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "rxfire": "^6.0.0",
