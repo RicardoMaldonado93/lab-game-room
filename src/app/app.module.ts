@@ -6,9 +6,10 @@ import { environment } from './../environments/environment';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './modules/components.module';
 import { AppRoutingModule } from './routes/app-routing.module';
+import { SurveyComponent } from './components/survey/survey.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SurveyComponent],
   imports: [
     AppRoutingModule,
     ComponentsModule,
