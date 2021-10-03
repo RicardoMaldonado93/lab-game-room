@@ -178,8 +178,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
           Validators.required,
           Validators.minLength(4),
         ]),
-      }
-      // this.passwordConfirming
+      },
+      this.passwordConfirming
     );
 
     this.loginForm = new FormGroup({

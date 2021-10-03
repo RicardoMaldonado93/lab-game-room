@@ -8,7 +8,7 @@ export class SnackbarService {
   private __customConfig:MatSnackBarConfig<any>;
   constructor(private snack:MatSnackBar) {
     this.__customConfig = {
-      duration: 1500,
+      duration: 2000,
       horizontalPosition:"right",
       verticalPosition:"bottom"
     }

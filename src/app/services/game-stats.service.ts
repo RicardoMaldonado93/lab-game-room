@@ -6,7 +6,7 @@ import { AuthService, IUserPublic } from './auth.service';
   providedIn: 'root',
 })
 export class GameStatsService {
-  private gameId!: games;
+  private gameId!: EGames;
   private user!: IUserPublic;
   public bestScores!:gamesScores;
   constructor(private auth: AuthService, private db: AngularFireDatabase) {
@@ -17,7 +17,7 @@ export class GameStatsService {
   }
 
   setGame(game: 'hangman' | 'asked' | 'minor-mayor' | 'earth-collapse') {
-    this.gameId = games[game];
+    this.gameId = EGames[game];
   }
 
   saveState(score: number) {
@@ -40,10 +40,10 @@ export class GameStatsService {
         let asked: IStats[] = [];
         let hangman: IStats[] = [];
         m.forEach((r) => {
-          if (r.gameId == games['earth-collapse']) earthCollapse.push(r);
-          if (r.gameId == games['minor-mayor']) minorOrMayor.push(r);
-          if (r.gameId == games['asked']) asked.push(r);
-          if (r.gameId == games['hangman']) hangman.push(r);
+          if (r.gameId == EGames['earth-collapse']) earthCollapse.push(r);
+          if (r.gameId == EGames['minor-mayor']) minorOrMayor.push(r);
+          if (r.gameId == EGames['asked']) asked.push(r);
+          if (r.gameId == EGames['hangman']) hangman.push(r);
         });
 
         minorOrMayor = this.orderByScore(minorOrMayor);
@@ -65,10 +65,10 @@ interface IStats {
   player: string;
   date: number;
   score: number;
-  gameId: games;
+  gameId: EGames;
 }
 
-enum games {
+export enum EGames {
   'hangman',
   'asked',
   'minor-mayor',

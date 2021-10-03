@@ -6,9 +6,9 @@ import {
 } from '@angular/fire/compat/firestore';
 import * as inicialSprites from '@dicebear/avatars-initials-sprites';
 import { createAvatar } from '@dicebear/avatars/';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateCurrentUser,  } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateCurrentUser } from 'firebase/auth';
 import * as moment from 'moment';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
@@ -142,9 +142,9 @@ interface IUser {
   displayName?: string;
   firstName?: string;
   lastName?: string;
-  somethingCustom?: string;
   password?: string;
   date?: string;
+  surveyComplete?:boolean
 }
 
 export interface IUserPublic {
@@ -154,5 +154,6 @@ export interface IUserPublic {
   displayName?: string;
   firstName?: string;
   lastName?: string;
+  surveyComplete?:boolean
 }
 
