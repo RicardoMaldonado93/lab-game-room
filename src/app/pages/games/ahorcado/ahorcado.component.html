@@ -1,8 +1,23 @@
 <div class="container">
-    <p style="color:white">ahorcado works!</p>
-
-  <ng-container *ngFor="let letter of alphabet">
-    <button class="btn btn-info">{{letter}}</button>
-  </ng-container>
-  
+  <h1 class="title">Ahorcado</h1>
+  <hr />
+  <div class="game-container">
+    <div class="mannequin">
+      <img
+        src="../../../../assets/images/horca.png"
+        alt="gallow"
+        width="120"
+        height="210"
+      />
+      <canvas width="400" height="500" #canvas></canvas>
+    </div>
+    <div class="word-container">
+      {{ word }}
+    </div>
+  </div>
+  <div class="options-container">
+    <ng-container *ngFor="let letter of alphabet">
+      <button class="btn btn-info" (click)="showLetter(letter)">{{ letter }}</button>
+    </ng-container>
+  </div>
 </div>
