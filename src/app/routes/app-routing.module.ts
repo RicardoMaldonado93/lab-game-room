@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { formsNames } from './routersNames';
 
-const { LOGIN, HOME, PROFILE, ABOUT_ME, GAMES } = formsNames;
+const { LOGIN, HOME, PROFILE, ABOUT_ME, GAMES, SCORES } = formsNames;
 
 const appRoutes: Routes = [
   {
@@ -33,6 +33,12 @@ const appRoutes: Routes = [
     path: GAMES,
     loadChildren: () =>
       import('../pages/games/games.module').then((m) => m.GamesModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: SCORES,
+    loadChildren: () =>
+      import('../pages/scores/scores.module').then((m) => m.ScoresModule),
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: `${HOME}`, pathMatch: 'full' },

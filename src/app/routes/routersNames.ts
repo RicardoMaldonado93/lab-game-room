@@ -3,5 +3,6 @@ export enum formsNames {
   HOME = 'home',
   PROFILE = 'my-profile',
   ABOUT_ME = 'about-me',
-  GAMES = 'games'
+  GAMES = 'games',
+  SCORES = 'best-scores'
 }

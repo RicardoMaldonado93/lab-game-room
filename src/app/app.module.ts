@@ -15,7 +15,6 @@ import { AppRoutingModule } from './routes/app-routing.module';
     ComponentsModule,
     CommonModule,
     HttpClientModule,
-    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   bootstrap: [AppComponent],

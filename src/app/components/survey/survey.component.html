@@ -1,0 +1,126 @@
+<ng-template class="survey" #surveyTemplate>
+  <h1 class="d-flex flex-row justify-content-center">~ Survey ~</h1>
+  <hr class="m-1" />
+  <form [formGroup]="survey" class="pl-4 pr-4">
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm">Name</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Small"
+        formControlName="name"
+        maxlength="25"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm"
+          >Last Name</span
+        >
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Small"
+        formControlName="lastName"
+        maxlength="25"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm">Age</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Small"
+        formControlName="age"
+        maxlength="2"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+    </div>
+    <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm"
+          >Phone</span
+        >
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Small"
+        formControlName="phone"
+        maxlength="10"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+    </div>
+
+    <div class="flex-row text-center">
+      <label for="games">Which game do you like most ?</label>
+    </div>
+    <div class="flex-row text-center mt-2 mb-3">
+      <select
+        name="games"
+        id="games"
+        class="browser-default custom-select custom-select-sm"
+        formControlName="favouriteGame"
+      >
+        <ng-container *ngFor="let game of games">
+          <option value="{{ game.value }}">{{ game.key }}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div class="flex-row text-center">
+      <label for="like">Do you like me page? </label>
+    </div>
+    <div class="flex-row text-center">
+      <div
+        class="btn-group btn-group-toggle mt-2 mb-3"
+        ngbRadioGroup
+        name="like"
+        formControlName="likePage"
+      >
+        <label class="btn-primary btn-sm" ngbButtonLabel>
+          <input ngbButton type="radio" [value]="true" /> Yes
+        </label>
+        <label class="btn-primary btn-sm" ngbButtonLabel>
+          <input ngbButton type="radio" [value]="false" /> No
+        </label>
+      </div>
+    </div>
+
+    <div class="flex-row text-center">
+      <label for="rating">How would you rate this game?</label>
+    </div>
+    <div class="flex-row text-center mt-2 mb-3">
+      <ngb-rating
+        [max]="5"
+        [(rate)]="rating"
+        [readonly]="false"
+        formControlName="rating"
+        style="font-size: 35px; color: orange;"
+      ></ngb-rating>
+    </div>
+    <div class="flex-row mt-4 text-center mb-2">
+      <button
+        type="button"
+        class="btn btn-lg btn-success mr-1"
+        (click)="submit()"
+        [disabled]="!survey.valid"
+      >
+        Submit
+      </button>
+      <button
+        type="button"
+        class="btn btn-lg btn-danger ml-1"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>

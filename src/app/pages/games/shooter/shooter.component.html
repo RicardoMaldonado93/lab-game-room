@@ -1,0 +1,51 @@
+<div class="">
+  <span class="hud" *ngIf="player">Score: {{ player?.score }}</span>
+
+  <canvas #canvas id="canvas" ></canvas>
+</div>
+
+<ng-template #menu>
+  <div class="result" *ngIf="!player">
+    <div class="container-result">
+      <span class="label-result">Earth Collapse</span>
+      <img
+        src="../../../../assets/images/games/earth_collapse/launch.jpg"
+        class="
+          img-fluid
+          ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
+        "
+        alt="earth_collapse"
+      />
+    </div>
+    <span class="label-result">One objective, safe the earth</span >
+    <span class="label-result">Ready ?</span >
+    <div class="buttons">
+      <button (click)='startGame()'>Play</button>
+      <button (click)='goBack()'>I wanna live!</button>
+    </div>
+  </div>
+
+  
+</ng-template>
+
+<ng-template #endGame>
+    <div class="result">
+        <div class="container-result">
+          <span class="label-result">Game Over</span>
+          <img
+            src="../../../../assets/images/games/earth_collapse/earth_collapse.jpg"
+            class="
+              img-fluid
+              ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
+            "
+            alt="earth_collapse"
+          />
+          <span  class="label-result">Your score is:</span>
+          <span  class="label-result">{{ player.score }}</span>
+        </div>
+        <div class="buttons">
+          <button (click)='startGame()'>Retry</button>
+          <button (click)='goBack()'>return later</button>
+        </div>
+      </div>
+</ng-template>

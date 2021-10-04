@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
         this.chats.scrollTop = this.chats?.scrollHeight;
         this.loader = false;
       }, 100);
-      this.userSelected= { uid:this.cs.session.user }
+      this.userSelected= { uid:this.cs.session }
     });
 
     this.cs.getUsersConnected().subscribe((a)=>{})

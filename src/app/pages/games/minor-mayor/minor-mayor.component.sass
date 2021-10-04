@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap')
+
+$border-size: 0.125rem
+$duration: 250ms
+$ease: cubic-bezier(0.215, 0.61, 0.355, 1)
+$font-family: monospace
+$color-primary: white
+$color-secondary: black
+$color-tertiary: dodgerblue
+$shadow: rgba(0, 0, 0, 0.1)
+$space: 1rem
+$font-hud: 'Italianno', cursive
+$color-base-1:#85535b
+$color-base-2:#536f85
+
+.container
+    padding: 5%
+    height: 100%
+
+.game-container
+    background: #afa9b5
+    background: radial-gradient(circle farthest-side at center center, #afa9b5 0%, #cfc7cf 90%)
+    border-radius: 10px
+    display: flex
+    flex-direction: column
+
+hr
+    width: 90%
+    margin-top: 0
+
+.front, .back, .card-container
+    width: 320px
+    height: 480px
+
+.front, .back
+    backface-visibility: hidden
+    position: absolute
+    top: 0
+    left: 0
+
+.front
+    // z-index: 2
+    transform: rotateY(0deg)
+    transition: all 0.3s linear
+
+.back
+    transition: all 0.3s linear
+    transform: rotateY(180deg)
+
+.card-container
+    position: relative
+
+.card-container-show
+    position: relative
+    .front
+        transform: rotateY(180deg)
+    .back
+        transform: rotateY(360deg)
+    .number
+        opacity: 1
+        transition: opacity 800ms ease-in
+        position: absolute
+        display: flex
+        z-index: 1
+
+.card-container-hide
+    position: relative
+    .front
+        transform: rotateY(0deg)
+    .back
+        transform: rotateY(180deg)
+    .number
+        opacity: 0
+        transition: opacity 100ms ease-in
+        position: absolute
+        display: flex
+        z-index: 1
+
+.cards
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+
+.number
+    text-align: center
+    position: relative
+    font-size: 100px
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: center
+    flex-direction: column
+    transition: all 0.3s linear
+    opacity: 0
+
+.result
+    position: relative
+
+    h1
+        text-align: center
+        font-weight: bolder
+        font-family: $font-hud
+
+    .container-result
+        width: 260px
+        height: 320px
+
+    .img-result
+        width: 260px
+        height: 320px
+
+    span
+        transition: opacity 800ms ease-in
+        position: absolute
+        display: flex
+        z-index: 1
+        width: 100%
+        height: 320px
+        justify-content: center
+        color: black
+        align-items: center
+        font-size: 48px
+        left: 20px
+        transition: all 0.3s linear
+        opacity: 0
+
+    .label-result
+        top: -48px
+        font-size: 34px
+        opacity: 1
+        font-weight: bolder
+        font-family: $font-hud
+
+    .number-result
+        opacity: 1
+        color: #745385
+
+    .multi-button
+        margin-top: 1.5rem
+
+/** butons **/
+
+.btn-container
+    display: grid
+    place-items: center
+    padding: 5% 14%
+
+.multi-button
+    display: flex
+    width: 100%
+    box-shadow: $shadow 4px 4px
+    height: 40px
+
+    & button
+        flex-grow: 1
+        cursor: pointer
+        position: relative
+        padding: calc($space / 1.125) $space $space
+        border: $border-size solid darken( $color-primary, 15%)
+        color: $color-secondary
+        background-color: darken( $color-primary, 15%)
+        font-size: 1.5rem
+        font-family: $font-family
+        text-transform: lowercase
+        text-shadow: $shadow 2px 2px
+        transition: flex-grow $duration $ease
+
+    & button + button
+        border-left: $border-size solid darken( $color-primary, 15%)
+        margin-left: calc($border-size * -1)
+
+    & button:hover:enabled,
+
+    & button:focus:enabled
+        flex-grow: 2
+        color: white
+        outline: none
+        text-shadow: none
+        background-color: $color-secondary
+
+    & button:focus:enabled
+        outline: $border-size dashed $color-primary
+        outline-offset: calc($border-size * -3)
+
+    &:hover:enabled
+        flex-grow: 1
+        color: $color-secondary
+        background-color: $color-primary
+        outline-color: $color-tertiary
+
+    & button:active
+        transform: translateY($border-size)
+
+    & button:disabled
+        background: darken( $color-primary, 35%)
+        border: $border-size solid darken( $color-primary, 35%)
+    & button + button:disabled
+        border: $border-size solid darken( $color-primary, 35%)
+        
+
+.hud
+    align-items: center
+    display: flex
+    flex-direction: row
+    padding: 0.5rem 0
+
+    span
+        font-family: $font-hud
+        font-size: 40px
+        text-align: center
+
+    .life
+        display: flex
+        flex-direction: column
+        width: 100%
+        justify-content: flex-end
+        span
+            flex-direction: column
+
+    .score
+        display: flex
+        flex-direction: column
+        width: 100%
+        justify-content: flex-start
+        padding-left: 2rem
+
+    .title
+        display: flex
+        flex-direction: column
+        justify-content: center
+        width: 100%
+        height: 48px
+        margin: 0
+        text-shadow: -1px -5px 5px rgba(0,0,0,0.17)
+        span
+            font-family: $font-hud
+            font-size: 48px

@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap")
+
+.survey
+    width: 300px
+    height: fit-content
+    position: absolute
+    left: 0
+    bottom: 0
+    background-color: red
+    font-family: "Ubuntu Mono"
+
+.question
+    width: 100%
+    flex-direction: row
+    label
+        display: flex
+        flex-direction: row
+        margin: 0
+        justify-content: center
+
+    .title
+        font-size: 1rem
+        font-weight: bold
+        &:nth-child(n+1)
+            margin-top: 1rem 
+            margin-bottom: 0.25rem
+    .option
+        width: 100%
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        padding: 0 1rem
+    
+
+        label
+            margin-left: 5px
+            text-align: left
+            display: flex
+            flex-direction: column
+
+        input[type='radio']
+            width: fit-content
+            display: flex
+            flex-direction: column
+            margin: 0
+            &:nth-child(n+1)
+                margin-left: 5px
+// label
+
+//     width: 100%
+//     position: relative
+//     display: flex
+//     flex-direction: column
+//     justify-content: center
+//     .title
+//         display: flex
+//         flex-direction: row
+//         position: relative
+//         width: 100%
+//         justify-content: center
+//     .options
+//         display: flex
+//         flex-direction: row
+//         width: 100%
+//         align-items: center
+//         justify-content: center
+//         flex-wrap: wrap
+//         // justify-content: space-evenly
+//         // padding: 0 2rem
+//     input
+//         width: fit-content
+//         display: flex
+//         margin: 0 10px
+//         flex-direction: column
+//         border-inline-start: 0

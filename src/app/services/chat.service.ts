@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AuthService, IUserPublic } from './auth.service';
 @Injectable({
   providedIn: 'root',
@@ -15,7 +14,6 @@ export class ChatService {
 
   constructor(
     private auth: AuthService,
-    private store: AngularFirestore,
     private db: AngularFireDatabase
   ) {
     this.auth.user$.subscribe((usr) => {
@@ -122,13 +120,19 @@ export class ChatService {
   }
 
   private lastChat(userID:string) {
-    this.db.object('lastSession').set({ id: this.chatRoom, user:userID });
+    this.db.object(`lastSession/${this.user.uid}`).set({ id: this.chatRoom, user:userID });
   }
 
   private getLastChat() {
     this.db.object('lastSession').query.on('value', (ref) => {
-      this.chatRoom = ref.val().id;
-      this.session = ref.val()
+      const keys:string[] = Object.keys(ref.val())
+      const key = keys.find( id => id === this.user?.uid ) || '';
+      const room = ref.val()[key];
+
+      if(room){
+        this.chatRoom = room?.id;
+        this.session = room?.user || null
+      }
     });
   }
 }

@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap')
+
+$font-hud: 'Gemunu Libre', sans-serif
+
+canvas
+    width: 100%
+    height: 100%
+    display: flex
+    border: 1px skolid whitesmoke
+    background-color: black
+
+span
+    color: whitesmoke
+    font-family: $font-hud
+    width: 100%
+    display: flex
+    justify-content: center
+    margin: 1rem 0
+
+.hud
+    margin-top: 1rem
+    font-size: 30px
+    position: fixed
+    user-select: none
+
+.result
+    position: relative
+
+    h1
+        text-align: center
+        font-weight: bolder
+        font-family: $font-hud
+
+    .container-result
+        max-width: 400px
+        max-height: 500px
+
+    .img-result
+        width: 260px
+        height: 320px
+
+    .label-result
+        top: -48px
+        font-size: 34px
+        opacity: 1
+        font-weight: bolder
+        font-family: $font-hud
+
+    .number-result
+        opacity: 1
+        color: #745385
+
+.buttons
+    margin-top: 2rem
+    display: flex
+    flex-direction: column
+    button
+        font-weight: bold
+        font-family: $font-hud

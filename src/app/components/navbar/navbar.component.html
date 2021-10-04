@@ -37,16 +37,26 @@
           >Games</a
         >
         <div class="dropdown-menu" aria-labelledby="dropdownId">
-          <a class="dropdown-item" [routerLink]="['/games/ahorcado']">Ahorcado</a>
-          <a class="dropdown-item" [routerLink]="['/games/menor-o-mayor']" >Mayor o Menor</a>
+          <a class="dropdown-item disabled" [routerLink]="['/games/ahorcado']" >Hangman</a>
+          <a class="dropdown-item disabled" [routerLink]="['/games/ahorcado']" >Asked</a>
+          <a class="dropdown-item" [routerLink]="['/games/minor-or-mayor']" >Minor or Mayor</a>
+          <a class="dropdown-item" [routerLink]="['/games/shooter']" >Earth Collapse</a>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/best-scores']">Best Scores</a>
+      </li>
+   
     </ul>
     <form class="form-inline my-2 my-lg-0 ">
       <div [ngClass]="{'animate__animated animate__fadeIn': user?.email}" [routerLink]="['/my-profile']" style="cursor:pointer">
         <span style="color: white; padding: 0 10px;" >{{user?.email }}</span>
       </div>
+      <div [ngClass]="{'animate__animated animate__fadeIn': user?.email}" >
+        <button class="btn btn-warning my-2 my-sm-0 mr-2"  (click)='showSurvey()' *ngIf="user?.email && !user?.surveyComplete">Survey</button>
+      </div>
       <button class="btn btn-outline-success my-2 my-sm-0 logout-btn" (click)="logOut()">Logout</button>
     </form>
   </div>
 </nav>
+<lb-survey *ngIf="!user?.surveyComplete && viewSurvey"></lb-survey>

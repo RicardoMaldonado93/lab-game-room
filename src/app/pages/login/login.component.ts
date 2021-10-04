@@ -178,8 +178,8 @@ export class LoginComponent implements AfterViewInit, OnInit {
           Validators.required,
           Validators.minLength(4),
         ]),
-      }
-      // this.passwordConfirming
+      },
+      this.passwordConfirming
     );
 
     this.loginForm = new FormGroup({
@@ -193,9 +193,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
       this.loginForm.get('user')?.setValue('test@demo.com');
       this.loginForm.get('password')?.setValue('123456');
     }
-    else
+    else{
       this.loginForm.get('user')?.setValue('maldonadoricardo93@gmail.com');
       this.loginForm.get('password')?.setValue('12345678');
+    }
   }
 
   private setError(errorMessage: string) {
