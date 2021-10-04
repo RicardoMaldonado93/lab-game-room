@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="title">Hangman</h1>
+  <div class="game-container">
+    <div class="mannequin">
+      <img
+        src="../../../../assets/images/horca.png"
+        alt="gallow"
+        width="120"
+        height="210"
+      />
+      <canvas width="400" height="500" #canvas></canvas>
+    </div>
+    <div class="word-container animate__animated animate__fadeIn">
+      {{ word }}
+    </div>
+  </div>
+  <div class="options-container">
+    <ng-container *ngFor="let letter of alphabet">
+      <button class="btn btn-info letter" (click)="showLetter(letter)">
+        {{ letter }}
+      </button>
+    </ng-container>
+  </div>
+</div>
+<ng-template #menu>
+  <div class="menu">
+    <div class="container-result">
+      <p class="title">Hangman</p>
+      <p class="emoji">🤠</p>
+      <p class="score-title mt-3">Ready to play ?</p>
+    </div>
+    <div class="buttons">
+      <button (click)="startGame()">Play</button>
+      <button (click)="goBack()">Return later</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #endGame>
+  <div class="result">
+    <div class="container-result">
+      <p class="title">Game over</p>
+      <p class="emoji">☠️</p>
+      <p class="score-title">Your score is:</p>
+      <p class="score">{{ score }}</p>
+    </div>
+    <div class="buttons">
+      <button (click)="startGame()">Retry</button>
+      <button (click)="goBack()">Return later</button>
+    </div>
+  </div>
+</ng-template>

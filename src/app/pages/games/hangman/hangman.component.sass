@@ -1,0 +1,174 @@
+// @import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@200&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap')
+@import 'https://fonts.googleapis.com/css?family=Bitter:400,700'
+
+$font-hud: 'Bitter', serif
+$font-letter: 'Pacifico', cursive
+
+.container
+    position: relative
+    background-color: grey
+    height: 80%
+    display: flex
+    flex-direction: column
+    /* top: 30%; */
+    justify-content: center
+    margin: auto
+    top: 5%
+    align-items: center
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfouEPAz10DZdeA6JFXNK1VtKTH4bzunjcxTZTjkcgivXiZtDGZZpT_pEpEVSeVYP8ZTc&usqp=CAU')
+    background-repeat: no-repeat
+    background-size: cover
+
+.game-container
+    display: flex
+    flex-grow: 1
+    flex-direction: column
+
+.options-container
+    display: flex
+    flex-wrap: wrap
+    width: 30rem
+    padding: 1rem 0
+    justify-content: center
+
+hr
+    width: 90%
+    position: relative
+    color: whitesmoke
+
+h1.title
+    color: #444444
+    margin: 1rem 0
+    font-size: 2rem
+    font-family: $font-letter
+
+.mannequin
+    flex-grow: .5
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 0.5rem
+
+.word-container
+    color: #444444
+    font-size: 2rem
+    font-family: $font-letter
+    text-transform: capitalize
+    letter-spacing: 4px
+
+.mannequin
+    .head
+        position: absolute
+        width: 30px
+        display: flex
+        top: 160px
+        margin-left: 85px
+    .body
+        position: absolute
+        height: 54px
+        top: 196px
+        margin-left: 82px
+    .left-arm
+        position: absolute
+        height: 54px
+        top: 200px
+        margin-left: 73px
+    .right-arm
+        position: absolute
+        height: 54px
+        top: 200px
+        margin-left: 117px
+
+canvas
+    width: 180px
+    height: 210px
+    position: absolute
+    margin-left: 62px
+
+.result
+    display: flex
+    flex-direction: column
+    padding-top: 1rem
+
+    p
+        display: flex
+        flex-direction: row
+        width: 100%
+        font-family: $font-hud
+        justify-content: center
+
+        &.title
+            font-size: 60px
+            height: 35px
+        &.emoji
+            font-size: 50px
+            height: 65px
+            display: flex
+            flex-direction: column
+            justify-content: space-evenly
+            text-align: center
+            margin-top: 1rem
+            margin-bottom: 0.5rem
+
+        &.score-title
+            font-size: 30px
+        &.score
+            font-size: 25px
+.menu
+    display: flex
+    flex-direction: column
+    padding-top: 1rem
+
+    p
+        display: flex
+        flex-direction: row
+        width: 100%
+        font-family: $font-letter
+        justify-content: center
+
+        &.title
+            font-size: 60px
+            height: 35px
+        &.emoji
+            font-size: 50px
+            height: 65px
+            display: flex
+            flex-direction: column
+            justify-content: space-evenly
+            text-align: center
+            margin-top: 2rem
+            margin-bottom: 0.5rem
+
+        &.score-title
+            font-size: 30px
+        &.score
+            font-size: 25px
+
+.buttons
+    display: flex
+    width: 100%
+    flex-direction: column
+    margin-top: 30px
+    font-size: 25px
+    justify-content: center
+    font-family: $font-hud
+    padding: 1rem 0
+    &> button
+        font-family: $font-letter
+        margin: .15rem
+        height: 40px
+        background: whitesmoke
+        color: #444444
+        border: 1px solid #444444
+        box-shadow: 2px 2px 5px rgba(0,0,0,.5)
+        &:hover
+            background: darken(whitesmoke, 8%)
+
+button.letter
+    font-family: $font-letter
+    margin: .15rem
+    background: whitesmoke
+    color: #444444
+    border: 1px solid #444444
+    box-shadow: 2px 2px 5px rgba(0,0,0,.5)

@@ -1,14 +1,26 @@
-import { map, take } from 'rxjs/operators';
+import { GameStatsService } from './../../../services/game-stats.service';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { DialogFactoryService } from './../../../services/dialog-factory.service';
+import { LoaderService } from './../../../services/loader.service';
 
 @Component({
-  selector: 'lb-ahorcado',
-  templateUrl: './ahorcado.component.html',
-  styleUrls: ['./ahorcado.component.sass'],
+  selector: 'lb-hangman',
+  templateUrl: './hangman.component.html',
+  styleUrls: ['./hangman.component.sass'],
 })
-export class AhorcadoComponent implements OnInit {
+export class HangmanComponent implements OnInit {
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('menu') menu!: TemplateRef<any>;
+  @ViewChild('endGame') endGame!: TemplateRef<any>;
+
   context!: CanvasRenderingContext2D;
   alphabet: string[] = [];
   wordlist: string[] = [];
@@ -18,36 +30,46 @@ export class AhorcadoComponent implements OnInit {
   bufferList: string[] = [];
   score: number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private dl: DialogFactoryService,
+    private loader: LoaderService,
+    private router: Router,
+    private gameStats:GameStatsService
+  ) {
     const alph = 'abcdefghijklmnñopqrstuvwxyz';
     this.alphabet = alph.split('').map((k) => k.toUpperCase());
-    this.wordList();
+    this.gameStats.setGame('hangman')
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.dl.open({template:this.menu})
+    }, 100);
+  }
 
-  drawError() {
+  private drawError() {
     this.context = this.canvas.nativeElement.getContext('2d')!;
     const c = this.context;
-    const baseColor = '#170F74';
+    const baseColor = '#444444';
     switch (this.error) {
       case 1:
         //? head
         c.beginPath();
-        c.fillStyle = 'bisque';
+        c.fillStyle = baseColor;
         c.arc(222, 180, 30, 0, Math.PI * 2, true);
         c.fill();
 
         //? mouth
         c.beginPath();
-        c.strokeStyle = 'red';
+        c.strokeStyle = 'white';
         c.lineWidth = 3;
         c.arc(222, 200, 10, 0, Math.PI, true);
         c.stroke();
 
         //? eyes
         c.beginPath();
-        c.fillStyle = 'green';
+        c.fillStyle = 'white';
         c.arc(210, 168, 3, 0, Math.PI * 2, true);
         c.fill();
         c.arc(234, 168, 3, 0, Math.PI * 2, true);
@@ -102,7 +124,7 @@ export class AhorcadoComponent implements OnInit {
     }
   }
 
-  wordGenerator() {
+  private wordGenerator() {
     this.index = Math.floor(Math.random() * this.wordlist.length);
 
     while (this.bufferList.includes(this.wordlist[this.index])) {
@@ -114,7 +136,7 @@ export class AhorcadoComponent implements OnInit {
 
     for (
       let index = 0;
-      index < Math.ceil(Math.random() * letter.length);
+      index < Math.floor(letter.length / 2); //Math.ceil(Math.random() * letter.length);
       index++
     ) {
       if (index != 0) letter = result.split('');
@@ -133,18 +155,40 @@ export class AhorcadoComponent implements OnInit {
     this.word = result;
   }
 
-  wordList() {
-    const api = 'https://random-word-api.herokuapp.com/word?number=3';
-    this.http.get<string[]>(api).subscribe((list) => {
-      console.log(list);
-      this.wordlist = list;
-      const interval = setInterval(() => {
-        if (this.wordlist.length > 0) {
-          clearInterval(interval);
-          this.wordGenerator();
-        }
-      }, 200);
-    });
+  private wordList() {
+
+    this.loader.show();
+    this.wordlist = [];
+
+    const api =
+      'https://palabras-aleatorias-public-api.herokuapp.com/experimental/random';
+    this.http.get<RootObject>(api).subscribe(
+      (list) => {
+        const wordFilter = this.removeAccents(list.body.Word);
+        this.wordlist.push(wordFilter);
+        const interval = setInterval(() => {
+          if (this.wordlist.length > 0) {
+            clearInterval(interval);
+            this.loader.hide();
+            this.wordGenerator();
+          }
+        }, 200);
+      },
+      () => {
+        const api = 'https://random-word-api.herokuapp.com/word?number=3';
+        this.http.get<string[]>(api).subscribe((list) => {
+          console.log(list);
+          this.wordlist = list;
+          const interval = setInterval(() => {
+            if (this.wordlist.length > 0) {
+              clearInterval(interval);
+              this.loader.hide();
+              this.wordGenerator();
+            }
+          }, 200);
+        });
+      }
+    );
   }
 
   showLetter(letter: string) {
@@ -162,11 +206,15 @@ export class AhorcadoComponent implements OnInit {
     if (buffer === this.word) {
       this.error++;
       this.drawError();
+
+      if (this.error == 6) 
+        this.showEndGame()
     }
 
     if (this.wordlist[this.index].toLowerCase() == this.word.toLowerCase()) {
       this.bufferList.push(this.word.toLowerCase());
-      this.score++;
+      this.score += this.word.length * 35;
+
       if (this.bufferList.length === this.wordlist.length) {
         this.bufferList = [];
         this.wordList();
@@ -176,4 +224,48 @@ export class AhorcadoComponent implements OnInit {
       this.wordGenerator();
     }
   }
+
+  goBack() {
+    this.dl.close()
+    this.router.navigate(['home'])
+  }
+
+  startGame(){
+    this.dl.close()
+    this.wordList();
+  }
+
+  private removeAccents(word: string) {
+    return word.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  private showEndGame(){
+    this.gameStats.saveState(this.score);
+    this.dl.open({template:this.endGame})
+  }
+}
+
+interface RootObject {
+  api_owner: Apiowner;
+  body: Body;
+}
+
+interface Body {
+  Word: string;
+  Definition: string;
+  Author: string;
+  ErrorMessage?: any;
+  EncodingWebName: string;
+  WordOrigin?: any;
+  UrlDefinitionSource?: any;
+  DefinitionMD: string;
+  Related: any[];
+}
+
+interface Apiowner {
+  author: string;
+  cafecito: string;
+  instagram: string;
+  github: string;
+  linkedin: string;
 }

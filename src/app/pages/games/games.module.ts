@@ -1,14 +1,16 @@
+import { ComponentsModule } from './../../modules/components.module';
+import { SpinnerComponent } from './../../components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AhorcadoComponent } from './ahorcado/ahorcado.component';
+import { HangmanComponent } from './hangman/hangman.component';
 import { MinorMayorComponent } from './minor-mayor/minor-mayor.component';
 import { ShooterComponent } from './shooter/shooter.component';
 
 const routes: Routes = [
   {
     path: 'ahorcado',
-    component: AhorcadoComponent,
+    component: HangmanComponent,
   },
   {
     path: 'minor-or-mayor',
@@ -21,7 +23,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MinorMayorComponent, ShooterComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [
+    MinorMayorComponent,
+    ShooterComponent,
+    HangmanComponent,
+  ],
+  providers: [],
 })
 export class GamesModule {}

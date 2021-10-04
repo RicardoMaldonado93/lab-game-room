@@ -34,14 +34,23 @@
     </ng-container>
   </ol>
 
-  <!-- <h1 class="title">Hangman</h1>
+  <h1 class="title">Hangman</h1>
   <ol>
     <ng-container *ngFor="let reg of gs.bestScores.hangman">
-      <li style="color: azure">{{ reg?.player }}</li>
+      <li>
+        <div class="flex-row d-flex col-12">
+          <div class="flex-column col-8">
+            {{ reg?.player }}
+          </div>
+          <div class="flex-column col-4 ml-4">
+            {{ reg.score }}
+          </div>
+        </div>
+      </li>
     </ng-container>
   </ol>
 
-  <h1 class="title">Asked</h1>
+  <!--<h1 class="title">Asked</h1>
   <ol>
     <ng-container *ngFor="let reg of gs.bestScores.asked">
       <li style="color: azure">{{ reg?.player }}</li>
