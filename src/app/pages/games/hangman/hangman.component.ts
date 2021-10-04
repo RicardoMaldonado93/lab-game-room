@@ -1,3 +1,4 @@
+import { formsNames } from './../../../routes/routersNames';
 import { GameStatsService } from './../../../services/game-stats.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -226,8 +227,9 @@ export class HangmanComponent implements OnInit {
   }
 
   goBack() {
+    const { SCORES } = formsNames
     this.dl.close()
-    this.router.navigate(['home'])
+    this.router.navigate([SCORES])
   }
 
   startGame(){

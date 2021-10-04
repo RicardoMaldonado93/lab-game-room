@@ -72,9 +72,9 @@ export class MinorMayorComponent implements OnInit {
   }
 
   returnLater(){
-    const { HOME } = formsNames
+    const { SCORES } = formsNames
     this.dialog.close();
-    this.router.navigate([`${HOME}`])
+    this.router.navigate([SCORES])
   }
 
   private startGame() {

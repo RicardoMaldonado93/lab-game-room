@@ -41,6 +41,10 @@ export class ChatComponent implements OnInit {
       this.chatsContainer?.classList.remove('animate__delay-3s');
       this.usersConnected?.classList.remove('animate__delay-3s');
     }, 4000);
+
+    setTimeout(() => {
+      this.openClose()
+    }, 6000);
   }
 
   enviarMensaje() {

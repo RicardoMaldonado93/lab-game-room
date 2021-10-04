@@ -12,6 +12,7 @@ import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import { DialogFactoryService } from 'src/app/services/dialog-factory.service';
 import { GameStatsService } from 'src/app/services/game-stats.service';
+import { formsNames } from 'src/app/routes/routersNames';
 
 @Component({
   selector: 'lb-shooter',
@@ -71,7 +72,8 @@ export class ShooterComponent implements OnInit {
   }
 
   goBack(){
+    const { SCORES } = formsNames
     this.df.close();
-    this.router.navigate(['home'])
+    this.router.navigate([SCORES])
   }
 }
