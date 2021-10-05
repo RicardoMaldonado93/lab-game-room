@@ -17,6 +17,7 @@
         formControlName="name"
         maxlength="25"
         aria-describedby="inputGroup-sizing-sm"
+        [allowedRegExp]="'^[a-zA-Z\\s]*$'"
         required
       />
       <div class="error" [hidden]="!(survey.get('name')?.invalid && survey.get('name')?.touched)">
@@ -38,6 +39,7 @@
         [ngClass]="{ 'is-valid' : (survey.get('lastName')?.valid && survey.get('lastName')?.touched) }"
         formControlName="lastName"
         maxlength="25"
+        [allowedRegExp]="'^[a-zA-Z\\s]*$'"
         aria-describedby="inputGroup-sizing-sm"
       />
       <div class="error" [hidden]="!(survey.get('lastName')?.invalid && survey.get('lastName')?.touched)">
