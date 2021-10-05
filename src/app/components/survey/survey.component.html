@@ -58,6 +58,7 @@
         [ngClass]="{ 'is-valid' : (survey.get('age')?.valid && survey.get('age')?.touched) }"
         formControlName="age"
         maxlength="2"
+        [allowedRegExp]="'^[0-9]*$'"
         aria-describedby="inputGroup-sizing-sm"
       />
       <div class="error" [hidden]="!(survey.get('age')?.invalid && survey.get('age')?.touched)">
@@ -79,6 +80,7 @@
         formControlName="phone"
         maxlength="10"
         aria-describedby="inputGroup-sizing-sm"
+        [allowedRegExp]="'^[0-9]*$'"
       />
       <div class="error" [hidden]="!(survey.get('phone')?.invalid && survey.get('phone')?.touched)">
         <small>Phone number not valid, must begin with 11 or 15</small>

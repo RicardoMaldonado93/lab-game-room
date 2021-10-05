@@ -1,3 +1,4 @@
+import { AllowedRegExpDirective } from './../directives/allowed-reg-ex.directive';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { PipesModule } from './pipes.module';
     SpinnerComponent,
     ChatComponent,
     SurveyComponent,
+    AllowedRegExpDirective
   ],
   exports: [
     NavbarComponent,
@@ -37,6 +39,7 @@ import { PipesModule } from './pipes.module';
     SpinnerComponent,
     ChatComponent,
     SurveyComponent,
+    AllowedRegExpDirective
   ],
   providers: [SpinnerComponent, SurveyComponent],
   entryComponents: [DialogComponent],

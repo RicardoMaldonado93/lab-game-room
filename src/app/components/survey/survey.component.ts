@@ -37,6 +37,7 @@ export class SurveyComponent implements OnInit {
       phone: new FormControl('', [
         PhoneValidator,
         Validators.maxLength(10),
+        Validators.pattern('[0-9]'),
         Validators.required,
       ]),
       likePage: new FormControl(null, [Validators.required]),
