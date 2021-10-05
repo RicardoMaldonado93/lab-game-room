@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AgeRangeValidator,
@@ -13,6 +13,7 @@ import { ISurvey, SurveyService } from './../../services/survey.service';
   selector: 'lb-survey',
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.sass'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SurveyComponent implements OnInit {
   @ViewChild('surveyTemplate') surveyTemplate!: TemplateRef<any>;
@@ -26,8 +27,8 @@ export class SurveyComponent implements OnInit {
     private snackbar: SnackbarService
   ) {
     this.survey = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      lastName: new FormControl('', [Validators.required,  Validators.minLength(4)]),
       age: new FormControl('', [
         AgeRangeValidator(18, 99),
         Validators.required,

@@ -1,20 +1,29 @@
 <ng-template class="survey" #surveyTemplate>
   <h1 class="d-flex flex-row justify-content-center">~ Survey ~</h1>
   <hr class="m-1" />
-  <form [formGroup]="survey" class="pl-4 pr-4">
-    <div class="input-group input-group-sm mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm">Name</span>
+  <form [formGroup]="survey" class="pl-4 pr-4 needs-validation">
+    <div class="input-group input-group-sm mb-3 ">
+      <div class="input-group-prepend ">
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm"
+          >Name</span
+        >
       </div>
       <input
         type="text"
         class="form-control"
+        [ngClass]="{ 'is-invalid' : (survey.get('name')?.invalid && survey.get('name')?.touched) }"
+        [ngClass]="{ 'is-valid' : (survey.get('name')?.valid && survey.get('name')?.touched) }"
         aria-label="Small"
         formControlName="name"
         maxlength="25"
         aria-describedby="inputGroup-sizing-sm"
+        required
       />
+      <div class="error" [hidden]="!(survey.get('name')?.invalid && survey.get('name')?.touched)">
+        <small>Name invalid</small>
+      </div>
     </div>
+   
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text badge-primary" id="inputGroup-sizing-sm"
@@ -25,23 +34,35 @@
         type="text"
         class="form-control"
         aria-label="Small"
+        [ngClass]="{ 'is-invalid' : (survey.get('lastName')?.invalid && survey.get('lastName')?.touched) }"
+        [ngClass]="{ 'is-valid' : (survey.get('lastName')?.valid && survey.get('lastName')?.touched) }"
         formControlName="lastName"
         maxlength="25"
         aria-describedby="inputGroup-sizing-sm"
       />
+      <div class="error" [hidden]="!(survey.get('lastName')?.invalid && survey.get('lastName')?.touched)">
+        <small>Last Name invalid</small>
+      </div>
     </div>
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm">Age</span>
+        <span class="input-group-text badge-primary" id="inputGroup-sizing-sm"
+          >Age</span
+        >
       </div>
       <input
         type="text"
         class="form-control"
         aria-label="Small"
+        [ngClass]="{ 'is-invalid' : (survey.get('age')?.invalid && survey.get('age')?.touched) }"
+        [ngClass]="{ 'is-valid' : (survey.get('age')?.valid && survey.get('age')?.touched) }"
         formControlName="age"
         maxlength="2"
         aria-describedby="inputGroup-sizing-sm"
       />
+      <div class="error" [hidden]="!(survey.get('age')?.invalid && survey.get('age')?.touched)">
+        <small>Age not valid</small>
+      </div>
     </div>
     <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
@@ -53,10 +74,15 @@
         type="text"
         class="form-control"
         aria-label="Small"
+        [ngClass]="{ 'is-invalid' : (survey.get('phone')?.invalid && survey.get('phone')?.touched) }"
+        [ngClass]="{ 'is-valid' : (survey.get('phone')?.valid && survey.get('phone')?.touched) }"
         formControlName="phone"
         maxlength="10"
         aria-describedby="inputGroup-sizing-sm"
       />
+      <div class="error" [hidden]="!(survey.get('phone')?.invalid && survey.get('phone')?.touched)">
+        <small>Phone number not valid, must begin with 11 or 15</small>
+      </div>
     </div>
 
     <div class="flex-row text-center">
@@ -68,6 +94,8 @@
         id="games"
         class="browser-default custom-select custom-select-sm"
         formControlName="favouriteGame"
+        [ngClass]="{ 'is-invalid' : (survey.get('favouriteGame')?.invalid && survey.get('favouriteGame')?.touched) }"
+        [ngClass]="{ 'is-valid' : (survey.get('favouriteGame')?.valid && survey.get('favouriteGame')?.touched) }"
       >
         <ng-container *ngFor="let game of games">
           <option value="{{ game.value }}">{{ game.key }}</option>
@@ -102,7 +130,7 @@
         [(rate)]="rating"
         [readonly]="false"
         formControlName="rating"
-        style="font-size: 35px; color: orange;"
+        style="font-size: 35px; color: orange"
       ></ngb-rating>
     </div>
     <div class="flex-row mt-4 text-center mb-2">
