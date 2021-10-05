@@ -16,7 +16,7 @@ export class GameStatsService {
     this.getScores();
   }
 
-  setGame(game: 'hangman' | 'asked' | 'minor-mayor' | 'earth-collapse') {
+  setGame(game: 'hangman' | 'quizz' | 'minor-mayor' | 'earth-collapse') {
     this.gameId = EGames[game];
   }
 
@@ -37,20 +37,20 @@ export class GameStatsService {
       .subscribe((m) => {
         let minorOrMayor: IStats[] = [];
         let earthCollapse: IStats[] = [];
-        let asked: IStats[] = [];
+        let quizz: IStats[] = [];
         let hangman: IStats[] = [];
         m.forEach((r) => {
           if (r.gameId == EGames['earth-collapse']) earthCollapse.push(r);
           if (r.gameId == EGames['minor-mayor']) minorOrMayor.push(r);
-          if (r.gameId == EGames['asked']) asked.push(r);
+          if (r.gameId == EGames['quizz']) quizz.push(r);
           if (r.gameId == EGames['hangman']) hangman.push(r);
         });
 
         minorOrMayor = this.orderByScore(minorOrMayor);
         earthCollapse = this.orderByScore(earthCollapse);
-        asked = this.orderByScore(asked);
+        quizz = this.orderByScore(quizz);
         hangman = this.orderByScore(hangman);
-        this.bestScores = { minorOrMayor, earthCollapse, asked, hangman };
+        this.bestScores = { minorOrMayor, earthCollapse, quizz, hangman };
       });
   }
 
@@ -70,13 +70,13 @@ interface IStats {
 
 export enum EGames {
   'hangman',
-  'asked',
+  'quizz',
   'minor-mayor',
   'earth-collapse',
 }
 export interface gamesScores {
   minorOrMayor: IStats[];
   earthCollapse: IStats[];
-  asked: IStats[];
+  quizz: IStats[];
   hangman: IStats[];
 }

@@ -6,10 +6,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HangmanComponent } from './hangman/hangman.component';
 import { MinorMayorComponent } from './minor-mayor/minor-mayor.component';
 import { ShooterComponent } from './shooter/shooter.component';
+import { QuizzComponent } from './quizz/quizz.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const routes: Routes = [
   {
-    path: 'ahorcado',
+    path: 'hangman',
     component: HangmanComponent,
   },
   {
@@ -20,14 +22,21 @@ const routes: Routes = [
     path: 'shooter',
     component: ShooterComponent,
   },
+  {
+    path: 'quizz',
+    component: QuizzComponent,
+  },
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [
+    NgxSkeletonLoaderModule,
+    CommonModule, RouterModule.forChild(routes)],
   declarations: [
     MinorMayorComponent,
     ShooterComponent,
     HangmanComponent,
+    QuizzComponent,
   ],
   providers: [],
 })

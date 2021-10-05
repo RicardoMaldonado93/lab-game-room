@@ -1,0 +1,110 @@
+<div class="container p-4 animate__animated animate__backInUp" *ngIf="init">
+  <div class="gameContainer">
+    <div class="flex-row text-center">
+      <h1>Quizz!</h1>
+    </div>
+    <div class="clock">
+      <span id="timer"></span>
+    </div>
+    <div class="flex-row flag justify-content-center">
+      <ngx-skeleton-loader
+        count="1"
+        animation="pulse"
+        [hidden]="view"
+        [theme]="{
+          'border-radius': '5px',
+          'height': '260px',
+          'width': '400px',
+          'display':'flex',
+          'flex-direction':'column',
+          'justify-self':'center',
+          'align-self':'center',
+          'position': 'relative',
+          'background-color': 'whitesmoke',
+          'animation-duration': '2s',
+          'margin':0
+        }"
+      ></ngx-skeleton-loader>
+      <img
+        src="{{ question?.flag }}"
+        alt="flag"
+        [hidden]="!view"
+        class="animate__animated animate__fadeIn country"
+        id="flag"
+      />
+      <div class="status" [hidden]="status == 'in-game'">
+        <img
+          src="../../../../assets/images/games/quizz/comprobado.png"
+          alt="check"
+          class="check animate__animated animate__rubberBand"
+          [hidden]="status != 'correct'"
+          id="correct"
+        />
+        <img
+          src="../../../../assets/images/games/quizz/cancelar.png"
+          alt="check"
+          class="check animate__animated animate__rubberBand"
+          [hidden]="status != 'error'"
+          id="incorrect"
+        />
+      </div>
+    </div>
+
+    <div class="options">
+      <ng-container *ngFor="let op of options">
+        <button class="btn btn-info" mat-button (click)="option(op)" [disabled]='clicked'>
+          {{ op }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #menu>
+  <div class="menu">
+    <div class="container-result">
+      <p class="title">Quizz</p>
+      <div  class="emoji animate__animated animate__pulse animate__delay-2s">
+        <img
+          src="../../../../assets/images/games/quizz/geografia.png"
+          alt="geography"
+          height="150"
+          width="150"
+         
+        />
+      </div>
+      <p class="score-title mt-3">Ready to play ?</p>
+    </div>
+    <div class="buttons">
+      <button (click)="gameInit()">Play</button>
+      <button (click)="goBack()">Return later</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #endGame>
+  <div class="result">
+    <div class="container-result">
+      <p class="title">Time Out!!!</p>
+      <div
+        class="
+          emoji
+          animate__animated animate__shakeX animate__repeat-3
+        "
+      >
+        <img
+          src="../../../../assets/images/games/quizz/fuera-de-tiempo.png"
+          alt="timeout"
+          height="150"
+          width="150"
+        />
+      </div>
+      <p class="score-title">Your score is:</p>
+      <p class="score">{{ score }}</p>
+    </div>
+    <div class="buttons">
+      <button (click)="startGame()">Retry</button>
+      <button (click)="goBack()">Return later</button>
+    </div>
+  </div>
+</ng-template>

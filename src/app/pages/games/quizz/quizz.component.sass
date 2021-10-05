@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap')
+
+$font-hud: 'Patrick Hand', cursive
+
+.container
+    justify-content: center
+    display: flex
+    background-color: grey
+    margin-top: 1rem
+    background-image: url('https://previews.123rf.com/images/pingebat/pingebat1703/pingebat170300002/73780026-gran-detalle-ilustraci%C3%B3n-del-mapa-del-mundo-en-estilo-vintage-con-todos-los-l%C3%ADmites-de-los-pa%C3%ADses-y-.jpg')
+    background-repeat: no-repeat
+    background-size: cover
+
+.flag
+    display: flex
+    flex-direction: row
+    text-align: center
+    width: 100%
+    background-color: rgba(0,0 ,0 ,0.25 )
+    img.country
+        justify-self: center
+        display: flex
+        width: 400px
+        height: 260px
+        border: 6px solid red
+        border-style: double
+        padding: 0.5rem
+
+h1
+    font-family: $font-hud
+    font-size: 3rem
+
+.options
+    display: grid
+    grid-template: 50px 50px / 50% 50%
+    grid-gap: 0.5rem
+    grid-auto-flow: column
+    text-align: center
+    justify-content: space-around
+    margin-top: 2rem
+
+.gameContainer
+    display: flex
+    max-width: 400px
+    flex-direction: column
+
+.status
+    display: flex
+    flex-direction: row
+    position: absolute
+    width: 400px
+    height: 260px
+    justify-content: center
+.check
+    display: flex
+    position: relative
+    width: 200px
+    height: 200px
+    align-self: center
+    flex-direction: column
+
+@media screen and ( max-width: 812px  )
+    .flag
+        display: flex
+        flex-direction: row
+        text-align: center
+        width: 100%
+        img
+            justify-self: center
+            display: flex
+            width: 260px
+            height: 200px
+
+button
+    font-size: inherit
+
+.result
+    display: flex
+    flex-direction: column
+    padding-top: 1rem
+    width: 300px
+    p
+        display: flex
+        flex-direction: row
+        width: 100%
+        font-family: $font-hud
+        justify-content: center
+
+    .title
+        font-size: 60px
+        height: 35px
+    .emoji
+        display: flex
+        flex-direction: row
+        justify-content: center
+        text-align: center
+        margin-top: 1rem
+        margin-bottom: 0.5rem
+
+    .score-title
+        font-size: 30px
+    .score
+        font-size: 25px
+
+.menu
+    display: flex
+    flex-direction: column
+    padding-top: 1rem
+    width: 300px
+    p
+        display: flex
+        flex-direction: row
+        width: 100%
+        font-family: $font-hud
+        justify-content: center
+
+    .title
+        font-size: 60px
+        height: 35px
+    .emoji
+        display: flex
+        flex-direction: row
+        justify-content: center
+        text-align: center
+        margin-top: 1rem
+        margin-bottom: 0.5rem
+    .score-title
+        font-size: 30px
+    .score
+        font-size: 25px
+
+.buttons
+    display: flex
+    width: 100%
+    flex-direction: column
+    margin-top: 30px
+    font-size: 25px
+    justify-content: center
+    font-family: $font-hud
+    padding: 1rem 0
+    &> button
+        font-family: $font-hud
+        margin: .15rem
+        height: 40px
+        background: whitesmoke
+        color: #444444
+        border: 1px solid #444444
+        box-shadow: 2px 2px 5px rgba(0,0,0,.5)
+        &:hover
+            background: darken(whitesmoke, 8%)
+
+.clock
+    left: 60px
+    position: absolute
+    bottom: 26px
+    border: 4px solid
+    height: 100px
+    width: 100px
+    border-radius: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    background-image: url(https://c.stocksy.com/a/ob3300/z9/728860.jpg)
+    border-image-repeat: center
+    background-repeat: no-repeat
+    background-size: cover
+    text-align: center
+    span
+        font-family: $font-hud
+        font-size: 2rem
+        font-weight: bold

@@ -235,6 +235,7 @@ export class HangmanComponent implements OnInit {
   startGame(){
     this.dl.close()
     this.wordList();
+    this.score = 0
   }
 
   private removeAccents(word: string) {

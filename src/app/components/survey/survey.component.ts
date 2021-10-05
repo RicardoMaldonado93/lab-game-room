@@ -79,7 +79,7 @@ export class SurveyComponent implements OnInit {
   private setGames() {
     this.games = [
       { key: 'Hangman', value: EGames.hangman },
-      { key: 'Asked', value: EGames.asked },
+      { key: 'Quizz', value: EGames.quizz },
       { key: 'Minor or Mayor', value: EGames['minor-mayor'] },
       { key: 'Earth Collapse', value: EGames['earth-collapse'] },
     ];
