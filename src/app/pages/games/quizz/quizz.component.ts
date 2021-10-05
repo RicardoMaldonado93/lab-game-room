@@ -53,7 +53,6 @@ export class QuizzComponent implements OnInit {
     this.spinner.show();
     this.http.get<countries[]>(api).subscribe((data) => {
       this.countries = data;
-      console.log(this.countries);
     });
   }
 
