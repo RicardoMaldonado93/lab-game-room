@@ -13,7 +13,6 @@ import { ISurvey, SurveyService } from './../../services/survey.service';
   selector: 'lb-survey',
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.sass'],
-  encapsulation: ViewEncapsulation.None
 })
 export class SurveyComponent implements OnInit {
   @ViewChild('surveyTemplate') surveyTemplate!: TemplateRef<any>;

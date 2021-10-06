@@ -9,8 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   user$!:Observable<IUserPublic>
-
+  viewSurvey:boolean = false
   constructor(private auth:AuthService) {
     this.user$ = this.auth.user$
+  }
+
+  showSurvey(event:boolean){
+    this.viewSurvey = event
+    setTimeout(() => {
+      this.viewSurvey = false
+    }, 200);
   }
 }

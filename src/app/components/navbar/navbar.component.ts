@@ -1,8 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, IUserPublic } from './../../services/auth.service';
 import { ChatService } from './../../services/chat.service';
-import { SurveyService } from './../../services/survey.service';
 import { SurveyComponent } from './../survey/survey.component';
 
 @Component({
@@ -11,10 +10,10 @@ import { SurveyComponent } from './../survey/survey.component';
   styleUrls: ['./navbar.component.sass'],
 })
 export class NavbarComponent implements OnInit {
+  @Output() survey:EventEmitter<boolean> = new EventEmitter()
   viewNav!: boolean;
   user!: IUserPublic;
   algo!: TemplateRef<SurveyComponent>;
-  viewSurvey: boolean = false;
 
   constructor(
     private auth: AuthService,
@@ -37,9 +36,6 @@ export class NavbarComponent implements OnInit {
   }
 
   showSurvey(){
-    this.viewSurvey = true
-    setTimeout(() => {
-      this.viewSurvey = false
-    }, 100);
+    this.survey.emit(true)
   }
 }
